@@ -25,7 +25,7 @@
 			Examining Nutrition Among Colombian Youth
 		</h1>
 		<h2>
-			By DataPlate
+			By Miles, Angelina, Gerardo
 		</h2>
 	</div>
 
