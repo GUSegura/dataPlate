@@ -1,133 +1,114 @@
 <script>
-  import * as d3 from 'd3';
-  import { onMount } from 'svelte';
-  import Scroll from "./Scrolly.svelte";
-
-
-  let data_file = "src/EFSA Colombiana_dataset_2022.csv"
-  let data = [];
-  let currentStep;
-  const steps = [
+	/* Template by Connor Rothschild https://twitter.com/CL_Rothschild
+	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
+	
+  import Scrolly from "./Scrolly.svelte";
+  import Scatterplot from "./Scatterplot.svelte";
+  import IsotypeGrid from "./IsotypeGrid.svelte"
+	
+  let value;
+  const IsotypeGridSteps = [
   "<p> 8,513 Colombian households were surveyed</p>",
   '<p>Of these, 47% were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
   '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>'];
-  let svgWidth = 900;
-  let svgHeight = 600;
-  let numCols;
-  let xScale;
-  let yScale;
-  let circleSize;
 
-  onMount(async () => {
-    try {
-      const response = await fetch(data_file);
-      const csvData = await response.text();
-      data = d3.csvParse(csvData).map((d) => {
-        return {
-          students_in_hh: (d.nr_escuela_colegio === '_') ? 0 : +d.nr_escuela_colegio,
-          recieves_meal_plan: (d.nr_PAE === '_') ? 0 : +d.nr_PAE,
-          color: "black"
-        };
-      });
-
-      data = data.sort((a, b) => b.students_in_hh - a.students_in_hh); 
-
-      console.log(data);
-      let numCircles = data.length;
-      numCols = Math.ceil(Math.sqrt(numCircles));
-      let numRows = Math.ceil(numCircles / numCols);
-
-      let margin = 10;
-      circleSize = Math.min(
-        (svgWidth - (numCols + 1) * margin) / numCols,
-        Math.min((svgHeight - (numRows + 1) * margin) / numRows,100),
-      );
-
-      if (circleSize < 0){
-        circleSize = 5;
-      }
-
-      xScale = d3.scaleLinear()
-        .domain([0, numCols - 1])
-        .range([margin, svgWidth - margin - circleSize]);
-      yScale = d3.scaleLinear()
-        .domain([0, numRows - 1])
-        .range([margin, svgHeight - margin - circleSize]);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  $: {
-    updateColors(currentStep);
-  }
-
-  function updateColors(step) {
-    if (step == 0) {
-      data.forEach(d => { d.color = "gray" });
-      console.log(step)
-    }
-    if (step == 1) {
-      data.forEach(d => { d.color = d.students_in_hh > 0 ? "#0595b3" : "gray" });
-      console.log(step)
-    }
-    if (step == 2) {
-      data.forEach(d => { d.color = d.students_in_hh > 0 ? d.recieves_meal_plan > 0 ? "#f46c6c" : "#0595b3" : "gray" });
-      console.log(step)
-    }
-    coloredData = [...data]; // This line is crucial for Svelte to detect the changes in the data array.
-  }
-
-  let coloredData = data;
-
+  const steps = [
+		 "<p>This is a dynamic, responsive scatterplot that uses Russell Goldenberg's <a href='	https://twitter.com/codenberg/status/1432774653139984387' target='_blank'><code>Scrolly</code></a> to update its points' values on scroll.</p>",
+    "<p>The scatterplot uses tweened values to automatically update your points with smooth transitions. It also binds to the width of the container <code>div</code>, so its responsive by default.</p>",
+    "<p>Try resizing me to see the 'side-by-side' version, compared to the 'text-on-top' version that appears on small screens.</p><p>Want it to always appear 'text-on-top'? Just comment out the media query at the bottom of our styles (as in, leave the styles but comment out the surrounding <code>media</code> query).</p>",
+  ];
 </script>
 
-<main id="container">
-  <section>
-    <!-- The chart in the background, which is sticky thanks to CSS below -->
-    <div class="chart">
-      <svg width={svgWidth} height={svgHeight}>
-        {#each coloredData as d, i}
-          <circle 
-            cx={xScale(i % numCols)}
-            cy={yScale(Math.floor(i / numCols))}
-            r={circleSize / 2}
-            fill= {d.color}
-          />
-        {/each}
-      </svg>
-    </div>
+<section>
+	<div class='hero'>
+		<h1> 
+			Examining Nutrition Among Colombian Youth
+		</h1>
+		<h2>
+			By DataPlate
+		</h2>
+	</div>
 
-    <!-- The scrolling container which includes each of the text elements -->
-    <Scroll bind:value={currentStep}>
-      {#each steps as text, i}
-        <div class="step" class:active={currentStep === i}>
-          <div class="step-content">
-            {@html text}
+  <!-- This module is used as a container for the dataViz. Add a file for your data viz and -->
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each IsotypeGridSteps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
           </div>
-        </div>
-      {/each}
-    </Scroll>
-  </section>
-</main>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <IsotypeGrid step={value} />
+    </div>
+  </div>
+
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each steps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
+          </div>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <Scatterplot step={value} />
+    </div>
+  </div>
+
+	<div class='hero'>
+		<h1> 
+			Thanks!
+		</h1>
+		<h2>
+			<a href='https://twitter.com/CL_Rothschild' target="_blank">Questions and Tips</a>
+		</h2>
+	</div>
+</section>
 
 <style>
-  #container{
-    background: #dbc7a9;
-
+	:global(body) {
+		overflow-x: hidden;
+	}
+	
+	.hero {
+		height: 60vh;
+		display: flex;
+		place-items: center;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+	}
+	
+	.hero h2 {
+		margin-top: 0;
+		font-weight: 200;
+	}
+	
+  .spacer {
+    height: 40vh;
   }
-  /* The fixed chart */
-  .chart {
-    /* background: whitesmoke; */
-    width: 900px;
-    height: 600px;;
+
+  .sticky {
     position: sticky;
     top: 10%;
-    margin-left: 30%;
-    margin-right: 5%;
+		flex: 1 1 60%;
+    width: 60%;
   }
 
-  /* Scrollytelling CSS */
+  .section-container {
+    margin-top: 1em;
+    text-align: center;
+    transition: background 100ms;
+    display: flex;
+  }
+
   .step {
     height: 80vh;
     display: flex;
@@ -136,21 +117,45 @@
   }
 
   .step-content {
-    /* background: whitesmoke; */
+    font-size: 1rem;
+    background: whitesmoke;
     color: #ccc;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    margin-right: 75%;
+    justify-content: center;
     transition: background 500ms ease;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    text-align: left;
+		width: 75%;
+		margin: auto;
+		max-width: 500px;
   }
 
-  .step.active .step-content {
-    /* background: white; */
-    color: black;
+	.step.active .step-content {
+		background: white;
+		color: black;
+	}
+	
+  .steps-container,
+  .sticky {
+    height: 100%;
+  }
+
+  .steps-container {
+    flex: 1 1 40%;
+    z-index: 10;
+  }
+	
+/* Comment out the following line to always make it 'text-on-top' */
+  @media screen and (max-width: 768px) {
+    .section-container {
+      flex-direction: column-reverse;
+    }
+    .sticky {
+      width: 95%;
+			margin: auto;
+    }
   }
 </style>
