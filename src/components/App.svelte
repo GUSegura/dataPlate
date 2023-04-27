@@ -4,7 +4,9 @@
 	
   import Scrolly from "./Scrolly.svelte";
   import Scatterplot from "./Scatterplot.svelte";
-  import IsotypeGrid from "./IsotypeGrid.svelte"
+  import IsotypeGrid from "./IsotypeGrid.svelte";
+  import RegBar from "./RegBar.svelte";
+
 	
   let value;
   const IsotypeGridSteps = [
@@ -17,6 +19,12 @@
     "<p>The scatterplot uses tweened values to automatically update your points with smooth transitions. It also binds to the width of the container <code>div</code>, so its responsive by default.</p>",
     "<p>Try resizing me to see the 'side-by-side' version, compared to the 'text-on-top' version that appears on small screens.</p><p>Want it to always appear 'text-on-top'? Just comment out the media query at the bottom of our styles (as in, leave the styles but comment out the surrounding <code>media</code> query).</p>",
   ];
+
+  const regBarSteps = [
+    "<p>regular bar  </p>",
+    "<p>regular bar </p>",
+    "<p>regular bar </p>",
+  ]
 </script>
 
 <section>
@@ -59,6 +67,23 @@
     </div>
     <div class="sticky">
       <Scatterplot step={value} />
+    </div>
+  </div>
+
+<!-- AZ -->
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each regBarSteps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
+          </div>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <RegBar step={value} />
     </div>
   </div>
 
