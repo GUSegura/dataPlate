@@ -112,10 +112,10 @@
 function generateData(food_group){
  let data = [
       { 
-        bracket: 'Poor', 
-        poor: (fcs_count[food_group].poor.rarely/fcs_count.total.poor), 
-        borderline: fcs_count[food_group].poor.sometimes/fcs_count.total.poor, 
-        acceptable: fcs_count[food_group].poor.often/fcs_count.total.poor 
+        bracket: 'Acceptable', 
+        poor: fcs_count[food_group].acceptable.rarely/fcs_count.total.acceptable, 
+        borderline: fcs_count[food_group].acceptable.sometimes/fcs_count.total.acceptable, 
+        acceptable: fcs_count[food_group].acceptable.often/fcs_count.total.acceptable 
       },
 
       { 
@@ -126,10 +126,10 @@ function generateData(food_group){
       },
         
       { 
-        bracket: 'Acceptable', 
-        poor: fcs_count[food_group].acceptable.rarely/fcs_count.total.acceptable, 
-        borderline: fcs_count[food_group].acceptable.sometimes/fcs_count.total.acceptable, 
-        acceptable: fcs_count[food_group].acceptable.often/fcs_count.total.acceptable 
+        bracket: 'Poor', 
+        poor: (fcs_count[food_group].poor.rarely/fcs_count.total.poor), 
+        borderline: fcs_count[food_group].poor.sometimes/fcs_count.total.poor, 
+        acceptable: fcs_count[food_group].poor.often/fcs_count.total.poor 
       }
     ]; 
   return data;
@@ -150,12 +150,12 @@ function renderChart(food_group) {
   
       let xScale = d3.scaleBand()
         .domain(data.map(d => d.bracket))
-        .range([0, 260])
-        .padding(0.3);
+        .range([0, 130])
+        .padding(0.4);
   
       let yScale = d3.scaleLinear()
         .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
-        .range([160, 0]);
+        .range([60, 0]);
   
       let colors = d3.scaleOrdinal()
         .domain(['poor', 'borderline', 'acceptable'])
@@ -187,7 +187,78 @@ function renderChart(food_group) {
               .duration('400')
               .attr('opacity', '1');
             // d3.select(this).select('title').remove();
-          });
+          }); 
+          svg.append("g")
+            .attr("transform", "translate(0, 58)") // Position at the bottom of the chart
+            .call(d3.axisBottom(xScale))
+            .selectAll("text")
+              .style("font-size", "3.4px") 
+              .attr("y", 4.5) // Move the text down a bit
+              .style('fill', '#666666')
+              .style('font-family', '"Open Sans", sans-serif')
+              .attr("text-anchor", "middle");
+          svg.selectAll(".domain, .tick line").remove();
+// legend:
+let y_pos_l = -14; // closer to 0 is lower
+let square_size = 2;
+let spacing = 3.3;
+let text_space = 1.1;
+
+          svg.append("rect")
+            .attr("x",100)
+            .attr("y",y_pos_l)
+            .attr("font", "sans-serif")
+            .attr("width", square_size)
+            .attr("height", square_size)
+            .style("fill", "#54ae89")
+            // .attr("transform", "translate(0, 100)")            
+          svg.append("text")
+            .attr("x", 104)
+            .attr("y", y_pos_l + text_space)
+            .attr("alignment-baseline","middle")
+            .text("6 - 7 days")
+            .style("font-size", "2px")
+            .style('fill', '#666666')
+            .style('font-family', '"Open Sans", sans-serif')
+
+          svg.append("rect")
+            .attr("x",100)
+            .attr("y",y_pos_l + spacing)
+            .attr("font", "sans-serif")
+            .attr("width", square_size)
+            .attr("height", square_size)
+            .style("fill", "#fcb44c")
+            // .attr("transform", "translate(0, 100)")            
+          svg.append("text")
+            .attr("x", 104)
+            .attr("y", y_pos_l + spacing + text_space)
+            .attr("alignment-baseline","middle")
+            .text("3 - 5 days")
+            .style("font-size", "2px")
+            .style('fill', '#666666')
+            .style('font-family', '"Open Sans", sans-serif')
+
+          svg.append("rect")
+            .attr("x",100)
+            .attr("y",y_pos_l + 2*spacing)
+            .attr("font", "sans-serif")
+            .attr("width", square_size)
+            .attr("height", square_size)
+            .style("fill", "#f46c6c")
+            // .attr("transform", "translate(0, 100)")            
+          svg.append("text")
+            .attr("x", 104)
+            .attr("y", y_pos_l + 2*spacing + text_space)
+            .attr("alignment-baseline","middle")
+            .text("0 - 2 days")
+            .style("font-size", "2px")
+            .style('fill', '#666666')
+            .style('font-family', '"Open Sans", sans-serif')                        
+            
+            // .attr("transform", "translate(0, 100)")
+  
+
+              
 }
   //replace to choose default food group            
   renderChart("vegetables");
@@ -209,7 +280,7 @@ function renderChart(food_group) {
   bind:offsetWidth={width}
   bind:offsetHeight={height}
 >
-  <svg width="100%" height="auto" viewBox="0 0 260 160"></svg>
+  <svg width="100%" height="auto" viewBox="0 0 130 48"></svg> 
 </div>
 
 <input type="radio" name="food_group" value="vegetables" id="vegetables" checked="checked">
@@ -230,7 +301,7 @@ function renderChart(food_group) {
   .chart-container-bars svg {
     transform: translate(-50%, -50%);
     position: absolute;
-    top: 50%;
+    top: 48%;
     left: 50%;
   }    
 </style>
