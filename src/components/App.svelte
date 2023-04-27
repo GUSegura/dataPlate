@@ -6,13 +6,18 @@
   import Scatterplot from "./Scatterplot.svelte";
   import IsotypeGrid from "./IsotypeGrid.svelte";
   import RegBar from "./RegBar.svelte";
-
+  import StackedBars from "./StackedBars.svelte";
 	
   let value;
   const IsotypeGridSteps = [
   "<p> 8,513 Colombian households were surveyed</p>",
   '<p>Of these, 47% were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
   '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>'];
+
+  const StackedBarsSteps = [
+  "<p>Diets are unbalanced</p>",
+  '<p>Many households consume vegetables <span style="font-weight:bold; color:#0595b3;">0-2 days per week.</span></p>',
+  '<p>More filler text. </p>'];
 
   const steps = [
 		 "<p>This is a dynamic, responsive scatterplot that uses Russell Goldenberg's <a href='	https://twitter.com/codenberg/status/1432774653139984387' target='_blank'><code>Scrolly</code></a> to update its points' values on scroll.</p>",
@@ -84,6 +89,22 @@
     </div>
     <div class="sticky">
       <RegBar step={value} />
+    </div>
+  </div>
+
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each StackedBarsSteps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
+          </div>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <StackedBars step={value} />
     </div>
   </div>
 
