@@ -26,9 +26,8 @@
   ];
 
   const RegBarSteps = [
-    "<p>regular bar  </p>",
-    "<p>regular bar </p>",
-    "<p>regular bar </p>",
+    "<p>regular bar1  </p>",
+    "<p>regular bar2 </p>",
   ]
 </script>
 
@@ -56,22 +55,6 @@
     </div>
     <div class="sticky">
       <IsotypeGrid step={value} />
-    </div>
-  </div>
-
-  <div class="section-container">
-    <div class="steps-container">
-      <Scrolly bind:value>
-        {#each steps as text, i}
-          <div class="step" class:active={value === i}>
-            <div class="step-content">{@html text}</div>
-          </div>
-        {/each}
-        <div class="spacer" />
-      </Scrolly>
-    </div>
-    <div class="sticky">
-      <Scatterplot step={value} />
     </div>
   </div>
 
