@@ -135,7 +135,7 @@ function generateData(food_group){
   return data;
 }
  
-
+// console.log("all count information", fcs_count)
 // console.log("The data passed in:", data);
 function renderChart(food_group) {
       let data = generateData(food_group);
@@ -157,9 +157,10 @@ function renderChart(food_group) {
         .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
         .range([60, 0]);
   
+      let color_pal = ['#d8b365', '#63cfae', '#328fcf'];
       let colors = d3.scaleOrdinal()
         .domain(['poor', 'borderline', 'acceptable'])
-        .range(['#f46c6c', '#fcb44c', '#54ae89']);
+        .range(color_pal);
   
       svg.selectAll('g')
         .data(stackedData)
@@ -199,10 +200,10 @@ function renderChart(food_group) {
               .attr("text-anchor", "middle");
           svg.selectAll(".domain, .tick line").remove();
 // legend:
-let y_pos_l = -14; // closer to 0 is lower
-let square_size = 2;
-let spacing = 3.3;
-let text_space = 1.1;
+          let y_pos_l = -14; // closer to 0 is lower
+          let square_size = 2;
+          let spacing = 3.3;
+          let text_space = 1.1;
 
           svg.append("rect")
             .attr("x",100)
@@ -210,7 +211,7 @@ let text_space = 1.1;
             .attr("font", "sans-serif")
             .attr("width", square_size)
             .attr("height", square_size)
-            .style("fill", "#54ae89")
+            .style("fill", color_pal[2])
             // .attr("transform", "translate(0, 100)")            
           svg.append("text")
             .attr("x", 104)
@@ -227,7 +228,7 @@ let text_space = 1.1;
             .attr("font", "sans-serif")
             .attr("width", square_size)
             .attr("height", square_size)
-            .style("fill", "#fcb44c")
+            .style("fill", color_pal[1])
             // .attr("transform", "translate(0, 100)")            
           svg.append("text")
             .attr("x", 104)
@@ -244,7 +245,7 @@ let text_space = 1.1;
             .attr("font", "sans-serif")
             .attr("width", square_size)
             .attr("height", square_size)
-            .style("fill", "#f46c6c")
+            .style("fill", color_pal[0])
             // .attr("transform", "translate(0, 100)")            
           svg.append("text")
             .attr("x", 104)

@@ -20,10 +20,18 @@
   '<p>Of these, 47% were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
   '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>'];
 
+
+  // sources for data: https://globalnutritionreport.org/resources/nutrition-profiles/latin-america-and-caribbean/south-america/colombia/
+  // for malnutrition: https://biomedscis.com/fulltext/epidemiology-of-child-malnutrition-in-colombia.ID.000537.php#:~:text=In%20Colombia%2C%20the%20malnutrition%20rate,decreasing%20trend%20in%20recent%20decades.
   const StackedBarsSteps = [
-  "<p>Diets are unbalanced</p>",
-  '<p>Many households consume vegetables <span style="font-weight:bold; color:#0595b3;">0-2 days per week.</span></p>',
-  '<p>More filler text. </p>'];
+  "<h1 style='font-family: Arial; line-height: 140%'>Diets appear unbalanced <strong>regardless of FCS status.</strong></h2><p style='font-family: Arial; font-size: 22px; line-height: 160%'>Even in meal-plan households with 'acceptable' consumption, <strong>many vital food groups are absent.</strong></p>",
+
+  "<h2 style='font-family: Arial; line-height: 160%'><strong>65%</strong> of all households eat vegetables <span style='font-weight:bold; color:#ba9a56;''>less than twice a week</span>.</h2>\
+   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>In Colombia, the average adult over 20 years old consumes only 32% of the recommended vegetable intake.</p>\
+   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake is largely missing from the literature.</p>",
+  
+  "<h2 style='font-family: Arial; line-height: 160%'>Choose a food group to learn more about the eating habits of meal-plan households.</h2>"
+];
 
   const steps = [
 		 "<p>This is a dynamic, responsive scatterplot that uses Russell Goldenberg's <a href='	https://twitter.com/codenberg/status/1432774653139984387' target='_blank'><code>Scrolly</code></a> to update its points' values on scroll.</p>",
