@@ -193,14 +193,15 @@ function renderChart(food_group) {
             .attr("transform", "translate(0, 58)") // Position at the bottom of the chart
             .call(d3.axisBottom(xScale))
             .selectAll("text")
-              .style("font-size", "3.4px") 
-              .attr("y", 4.5) // Move the text down a bit
-              .style('fill', '#666666')
-              .style('font-family', '"Open Sans", sans-serif')
+              .style("font-size", "3.0px") 
+              .attr("y", 5) // Move the text down a bit
+              .style('fill', '#333333')
+              .style('font-family', 'Arial')
+              .style("font-weight", "bold")
               .attr("text-anchor", "middle");
           svg.selectAll(".domain, .tick line").remove();
 // legend:
-          let y_pos_l = -14; // closer to 0 is lower
+          let y_pos_l = -16; // closer to 0 is lower
           let square_size = 2;
           let spacing = 3.3;
           let text_space = 1.1;
@@ -218,8 +219,8 @@ function renderChart(food_group) {
             .attr("y", y_pos_l + text_space)
             .attr("alignment-baseline","middle")
             .text("6 - 7 days")
-            .style("font-size", "2px")
-            .style('fill', '#666666')
+            .style("font-size", "2.3px")
+            .style('fill', '#444444')
             .style('font-family', '"Open Sans", sans-serif')
 
           svg.append("rect")
@@ -235,8 +236,8 @@ function renderChart(food_group) {
             .attr("y", y_pos_l + spacing + text_space)
             .attr("alignment-baseline","middle")
             .text("3 - 5 days")
-            .style("font-size", "2px")
-            .style('fill', '#666666')
+            .style("font-size", "2.3px")
+            .style('fill', '#444444')
             .style('font-family', '"Open Sans", sans-serif')
 
           svg.append("rect")
@@ -252,8 +253,8 @@ function renderChart(food_group) {
             .attr("y", y_pos_l + 2*spacing + text_space)
             .attr("alignment-baseline","middle")
             .text("0 - 2 days")
-            .style("font-size", "2px")
-            .style('fill', '#666666')
+            .style("font-size", "2.3px")
+            .style('fill', '#444444')
             .style('font-family', '"Open Sans", sans-serif')                        
             
             // .attr("transform", "translate(0, 100)")
