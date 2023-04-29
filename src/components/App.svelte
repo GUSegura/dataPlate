@@ -3,13 +3,19 @@
 	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
 	
   import Scrolly from "./Scrolly.svelte";
-  import Scatterplot from "./Scatterplot.svelte";
-  import IsotypeGrid from "./IsotypeGrid.svelte";
+  import ColombiaGrid from "./ColombiaGrid.svelte";
   import RegBar from "./RegBar.svelte";
   import StackedBars from "./StackedBars.svelte";
+  import MeealPlanGrid from "./MealPlanGrid.svelte"
 	
   let value;
-  const IsotypeGridSteps = [
+  const ColombiaGridSteps = [
+  "<p> 8,513 Colombian households were surveyed</p>",
+  '<p>Of these, <span style="font-weight:bold;">47%</span> were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
+  '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>',
+  '<p> That is, 1 out of every 5 Colombian households participated in the school meal plan</p>'];
+
+  const MealPlanGridSteps = [
   "<p> 8,513 Colombian households were surveyed</p>",
   '<p>Of these, 47% were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
   '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>'];
@@ -46,7 +52,7 @@
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
-        {#each IsotypeGridSteps as text, i}
+        {#each ColombiaGridSteps as text, i}
           <div class="step" class:active={value === i}>
             <div class="step-content">{@html text}</div>
           </div>
@@ -55,23 +61,7 @@
       </Scrolly>
     </div>
     <div class="sticky">
-      <IsotypeGrid step={value} />
-    </div>
-  </div>
-
-  <div class="section-container">
-    <div class="steps-container">
-      <Scrolly bind:value>
-        {#each steps as text, i}
-          <div class="step" class:active={value === i}>
-            <div class="step-content">{@html text}</div>
-          </div>
-        {/each}
-        <div class="spacer" />
-      </Scrolly>
-    </div>
-    <div class="sticky">
-      <Scatterplot step={value} />
+      <ColombiaGrid step={value} />
     </div>
   </div>
 
@@ -89,6 +79,22 @@
     </div>
     <div class="sticky">
       <RegBar step={value} />
+    </div>
+  </div>
+
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each MealPlanGridSteps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
+          </div>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <MeealPlanGrid step={value} />
     </div>
   </div>
 

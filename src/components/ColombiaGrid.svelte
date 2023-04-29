@@ -33,7 +33,8 @@
         });
   
         // Sort the data in descending order of students in households
-        data = data.sort((a, b) => b.students_in_hh - a.students_in_hh); 
+        data = data.sort((a, b) => b.students_in_hh - a.students_in_hh);
+        data = data.sort((a, b) => b.recieves_meal_plan - a.recieves_meal_plan);
     
         // Calculate the number of rows and columns, and circle size for the chart
         let numCircles = data.length;
@@ -63,7 +64,7 @@
     });
   
     // Update the colors of the circles based on the step value
-    function updateColors(step) {
+    function updateStep(step) {
       if (step == 0) {
         data.forEach(d => { d.color = "gray" });
       }
@@ -73,14 +74,17 @@
       if (step == 2) {
         data.forEach(d => { d.color = d.students_in_hh > 0 ? d.recieves_meal_plan > 0 ? "#f46c6c" : "#0595b3" : "gray" });
       }
-  
+      if (step == 3) {
+        data.forEach(d => { d.color = d.recieves_meal_plan > 0 ? "#f46c6c" : "#ede3d4" });
+      }
+
       // Copy the data array to the coloredData array to trigger a re-render
       coloredData = [...data];
     }
     
     // Update the colors on every change of the step variable
     $: {
-      updateColors(step);
+      updateStep(step);
     }
   
     let coloredData = data;
@@ -108,7 +112,7 @@
     .chart-container {
       height: 80vh;
       max-width: 100%;
-          background: linear-gradient(to bottom right, steelblue -100%, white 100%);
+          background: #ede3d4;
           border-radius: 5px;
           box-shadow: 1px 1px 6px #cecece;
     }
