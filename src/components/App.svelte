@@ -31,10 +31,9 @@
     "<p>Try resizing me to see the 'side-by-side' version, compared to the 'text-on-top' version that appears on small screens.</p><p>Want it to always appear 'text-on-top'? Just comment out the media query at the bottom of our styles (as in, leave the styles but comment out the surrounding <code>media</code> query).</p>",
   ];
 
-  const regBarSteps = [
-    "<p>regular bar  </p>",
-    "<p>regular bar </p>",
-    "<p>regular bar </p>",
+  const RegBarSteps = [
+    "<p>regular bar1  </p>",
+    "<p>regular bar2 </p>",
   ]
 </script>
 
@@ -69,7 +68,7 @@
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
-        {#each regBarSteps as text, i}
+        {#each RegBarSteps as text, i}
           <div class="step" class:active={value === i}>
             <div class="step-content">{@html text}</div>
           </div>
@@ -81,6 +80,7 @@
       <RegBar step={value} />
     </div>
   </div>
+
 
   <div class="section-container">
     <div class="steps-container">
