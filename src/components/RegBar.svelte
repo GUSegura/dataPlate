@@ -42,6 +42,76 @@
       } catch (error) {
           console.error(error);
       }
+      function barChart() {
+        console.log("step ",step);
+        const margin = { top: 30, bottom: 30, left: 30, right: 30 };
+        const height = 600;// - margin.top - margin.bottom;
+        const width = 600;// - margin.left - margin.right;
+
+        let svg = d3.select('.bar-chart-container')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height);
+
+        let x = d3.scaleBand()
+          .domain(aggData.map(d => d.students_in_hh))
+          .range([margin.left, width - margin.right])
+          .padding(0.4);
+
+        let y = d3.scaleLinear()
+          .domain([0, 1])
+          .range([height - margin.bottom, margin.top]);
+
+        svg.append('g')
+          .attr('transform', `translate(0, ${height - margin.bottom})`)
+          .call(d3.axisBottom(x));
+
+        svg.append('text') //x axis label
+            .attr('x', width / 2)
+            .attr('y', y(0)+margin.bottom)
+            .style("text-anchor", "middle")
+            .style('font-family', 'Arial')
+            .text('Number of Children in Household');
+
+        svg.append('g')
+          .attr('transform', `translate(${margin.left}, 0)`)
+          .call(d3.axisLeft(y));
+        
+        
+        svg.append('text') //y axis label- Fix
+          .attr("class", "y-label")
+          .attr("x", -height/2)
+          .attr("y", margin.left/2)
+          .attr('transform', 'rotate(-90)')
+          .style("text-anchor", "middle")
+          .style('font-family', 'Arial')
+          .text('Proportion of Students Receiving Meal Plan');
+        
+        svg.selectAll('.barChart')
+          .data(aggData)
+          .join('rect')
+          .attr('class', 'barChart')
+          .attr('x', d => x(d.students_in_hh))
+          .attr('y', d => y(d.proportion))
+          .attr('width', x.bandwidth())
+          .attr('height', d => y(0) - y(d.proportion))
+          .attr('fill', '#0595b3')
+          .on('mouseover', function(event, d) {
+            console.log('Event:',event);
+            console.log('Students in household:', d.students_in_hh);
+            console.log('Proportion receiving meal plan:', d.proportion); 
+            console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult))   
+          });
+
+        svg.append('text') //title
+          .attr('x', width / 2)
+          .attr('y', margin.top)
+          .style("text-anchor", "middle")
+          .style('font-family', 'Arial')
+          .style("font-weight", "bold")
+          .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
+      }
+      barChart();
     });
      
 
@@ -52,78 +122,12 @@
 
   $: {
     if (data.length > 0) {
-      barChart();
+      updateColors();
     }
+  }
 
-  function barChart() {
-    console.log("step ",step);
-    const margin = { top: 30, bottom: 30, left: 30, right: 30 };
-    const height = 600;// - margin.top - margin.bottom;
-    const width = 600;// - margin.left - margin.right;
-
-    let svg = d3.select('.bar-chart-container')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height);
-
-    let x = d3.scaleBand()
-      .domain(aggData.map(d => d.students_in_hh))
-      .range([margin.left, width - margin.right])
-      .padding(0.4);
-
-    let y = d3.scaleLinear()
-      .domain([0, 1])
-      .range([height - margin.bottom, margin.top]);
-
-    svg.append('g')
-      .attr('transform', `translate(0, ${height - margin.bottom})`)
-      .call(d3.axisBottom(x));
-
-    svg.append('text') //x axis label
-        .attr('x', width / 2)
-        .attr('y', y(0)+margin.bottom)
-        .style("text-anchor", "middle")
-        .style('font-family', 'Arial')
-        .text('Number of Children in Household');
-
-    svg.append('g')
-      .attr('transform', `translate(${margin.left}, 0)`)
-      .call(d3.axisLeft(y));
-    
-    
-    svg.append('text') //y axis label- Fix
-      .attr("class", "y-label")
-      .attr("x", -height/2)
-      .attr("y", margin.left/2)
-      .attr('transform', 'rotate(-90)')
-      .style("text-anchor", "middle")
-      .style('font-family', 'Arial')
-      .text('Proportion of Students Receiving Meal Plan');
-    
-    svg.selectAll('.barChart')
-      .data(aggData)
-      .join('rect')
-      .attr('class', 'barChart')
-      .attr('x', d => x(d.students_in_hh))
-      .attr('y', d => y(d.proportion))
-      .attr('width', x.bandwidth())
-      .attr('height', d => y(0) - y(d.proportion))
-      .attr('fill', '#0595b3')
-      .on('mouseover', function(event, d) {
-        console.log('Event:',event);
-        console.log('Students in household:', d.students_in_hh);
-        console.log('Proportion receiving meal plan:', d.proportion); 
-        console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult))   
-      });
-
-    svg.append('text') //title
-      .attr('x', width / 2)
-      .attr('y', margin.top)
-      .style("text-anchor", "middle")
-      .style('font-family', 'Arial')
-      .style("font-weight", "bold")
-      .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
-    if (step==1){ //gradient
+function updateColors() {
+  if (step==1){ //gradient
       d3.selectAll('.barChart')
         .style('fill', d => colorScale(d.reduce_adult));
         //TODO- add legend
@@ -131,9 +135,7 @@
       d3.selectAll('.barChart')
         .style('fill', '#0595b3');
     }
-  }
 }
-
 </script>
 
 <div 
