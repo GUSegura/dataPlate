@@ -46,9 +46,9 @@
     });
      
 
-  var colorScale = d3.scaleLinear() 
+  var colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
     .domain([0, 7])
-    .range(['white', 'blue']);
+    .interpolator(d3.interpolateRgb("#FFFFFF", "#145e90"));
  
 
   $: {
