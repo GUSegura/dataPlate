@@ -132,21 +132,9 @@
       <StackedBars step={value} />
     </div>
   </div>
-
-	<div class='hero'>
-		<h1> 
-			Thanks!
-		</h1>
-		<h2>
-			<a href='https://twitter.com/CL_Rothschild' target="_blank">Questions and Tips</a>
-		</h2>
-	</div>
 </section>
 
 <style>
-  * {
-    font-family: Arial, sans-serif;
-  }
 	:global(body) {
 		overflow-x: hidden;
 	}
