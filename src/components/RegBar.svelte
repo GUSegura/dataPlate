@@ -86,6 +86,7 @@
         .attr('x', width / 2)
         .attr('y', y(0)+margin.bottom)
         .style("text-anchor", "middle")
+        .style('font-family', 'Arial')
         .text('Number of Children in Household');
 
     svg.append('g')
@@ -99,6 +100,7 @@
       .attr("y", margin.left/2)
       .attr('transform', 'rotate(-90)')
       .style("text-anchor", "middle")
+      .style('font-family', 'Arial')
       .text('Proportion of Students Receiving Meal Plan');
     
     svg.selectAll('.barChart')
@@ -121,6 +123,7 @@
       .attr('x', width / 2)
       .attr('y', margin.top)
       .style("text-anchor", "middle")
+      .style('font-family', 'Arial')
       .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
     let condition = true;
     if (condition){ //figure out with scrolly
