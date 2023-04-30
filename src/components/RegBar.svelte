@@ -24,7 +24,6 @@
           reduce_adult: (d.csi_reducir_adultos === '_') ? 0 : +d.csi_reducir_adultos
         };
       }).filter(d => d.students_in_hh > 0);
-      console.log("Data",data);
       aggData = d3.rollup(data,
         avg => ({
           proportion: d3.mean(avg, d => d.receives_meal_plan / d.students_in_hh),
@@ -57,8 +56,7 @@
     }
 
   function barChart() {
-    console.log("in bar",aggData);
-    // console.log('bar chart step',step);
+    console.log("step ",step);
     const margin = { top: 30, bottom: 30, left: 30, right: 30 };
     const height = 600;// - margin.top - margin.bottom;
     const width = 600;// - margin.left - margin.right;
@@ -67,7 +65,6 @@
       .append('svg')
       .attr('width', width)
       .attr('height', height);
-    // svg.selectAll("*").remove();
 
     let x = d3.scaleBand()
       .domain(aggData.map(d => d.students_in_hh))
@@ -124,26 +121,23 @@
       .attr('y', margin.top)
       .style("text-anchor", "middle")
       .style('font-family', 'Arial')
+      .style("font-weight", "bold")
       .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
-    let condition = true;
-    if (condition){ //figure out with scrolly
-      csiChart();
+    if (step==1){ //gradient
+      d3.selectAll('.barChart')
+        .style('fill', d => colorScale(d.reduce_adult));
+        //TODO- add legend
+    } else if (step==0){
+      d3.selectAll('.barChart')
+        .style('fill', '#0595b3');
     }
   }
-}
-
-function csiChart(){
-  // console.log('csi step',step);
-  d3.selectAll('.barChart')
-    .style('fill', d => colorScale(d.reduce_adult));
-  // TODO add legend
 }
 
 </script>
 
 <div 
   class="bar-chart-container">
-  <!-- <svg width="100%" height="auto" viewBox="0 0 130 48"></svg>  -->
 </div>
 
 <style>
