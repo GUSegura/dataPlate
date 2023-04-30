@@ -157,7 +157,7 @@ function renderChart(food_group) {
         .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
         .range([60, 0]);
   
-      let color_pal = ['#d8b365', '#63cfae', '#328fcf'];
+      let color_pal = ['#d8b365', '#63cfae', '#328fcf']; //yellow, green,blue  
       let colors = d3.scaleOrdinal()
         .domain(['poor', 'borderline', 'acceptable'])
         .range(color_pal);

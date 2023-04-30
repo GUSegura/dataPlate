@@ -144,6 +144,9 @@
 </section>
 
 <style>
+  * {
+    font-family: Arial, sans-serif;
+  }
 	:global(body) {
 		overflow-x: hidden;
 	}
