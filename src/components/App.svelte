@@ -10,15 +10,15 @@
 	
   let value;
   const ColombiaGridSteps = [
-  "<p> 8,513 Colombian households were surveyed</p>",
-  '<p>Of these, <span style="font-weight:bold;">47%</span> were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
-  '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>',
-  '<p> That is, 1 out of every 5 Colombian households participated in the school meal plan</p>'];
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> 7,097 Colombian households were surveyed in the <a href='https://docs.wfp.org/api/documents/WFP-0000147247/download/?_ga=2.170658592.1445693605.1682871870-44187498.1677044367'>Colombian Emergency Food Security and Nutrition Assessment (EFSA)</a> </p>",
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>Of these, <span style='font-weight:bold;'>47%</span> were households with <span style='font-weight:bold; color:#0595b3;'>students</span></p>",
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>49% of the <span style='font-weight:bold; color:#0595b3;'>households with students</span> relied on the <span style='font-weight:bold; color:#A491D3;'>school meal plan</span> </p>",
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> That is, 1 out of every 5 Colombian households participated in the school meal plan.</p>",
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> Focusing on the food security and nutrition of this population provides us with insights into...</p>"];
 
   const MealPlanGridSteps = [
-  "<p> 8,513 Colombian households were surveyed</p>",
-  '<p>Of these, 47% were households with <span style="font-weight:bold; color:#0595b3;">students</span></p>',
-  '<p>49% of the <span style="font-weight:bold; color:#0595b3;">households with students</span> relied on the <span style="font-weight:bold; color:#f46c6c;">school meal plan</span> </p>'];
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> How can the meal plan be improved? </p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> We can consider the quality of the diet of <span style='font-weight:bold; color: #A491D3;'>meal plan households</span></p>",
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> The <span style='font-weight:bold;'>food consumption score (FCS)</span> is an indicator of diet diversity, meal frequency, and nutritional value.</p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> This index can be used to calculate household food consumption status.</p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> Households status may be evaluated as <span style='font-weight:bold; color: #54ae89;'>acceptable</span>, <span style='font-weight:bold; color: #fcb44c;'>boderline</span>, or <span style='font-weight:bold; color: #f46c6c;'>poor</span>.</p>"];
 
 
   // sources for data: https://globalnutritionreport.org/resources/nutrition-profiles/latin-america-and-caribbean/south-america/colombia/
@@ -47,13 +47,24 @@
 
 <section>
 	<div class='hero'>
-		<h1> 
-			Examining Nutrition Among Colombian Youth
+		<h1 style='font-family: Arial; line-height: 160%'> 
+			DataPlate
 		</h1>
-		<h2>
-			By Miles, Angelina, Gerardo
+    <h2 style='font-family: Arial; line-height: 160%'> 
+			Examining the Nutrition of Columbian Youth 
 		</h2>
 	</div>
+  <div class="intro">
+    <p> 
+      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a nutritional lens to make sure vulnerable groups are able to access a nutritious diet. 
+    </p>
+    <p>
+      In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
+    </p>
+    <p style="font-weight:bold; justify-content: center;">
+      Scroll down to start.
+    </p>
+  </div>
 
   <!-- This module is used as a container for the dataViz. Add a file for your data viz and -->
   <div class="section-container">
@@ -143,7 +154,7 @@
 		place-items: center;
 		flex-direction: column;
 		justify-content: center;
-		text-align: center;
+		text-align: left;
 	}
 	
 	.hero h2 {
@@ -191,6 +202,22 @@
 		width: 75%;
 		margin: auto;
 		max-width: 500px;
+  }
+
+  .intro{
+    font-size: 1rem;
+    font-family: Arial;
+    background: whitesmoke;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 500ms ease;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    text-align: left;
+		width: 75%;
+		margin: auto;
   }
 
 	.step.active .step-content {
