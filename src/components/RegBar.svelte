@@ -43,7 +43,6 @@
           console.error(error);
       }
       function barChart() {
-        console.log("step ",step);
         const margin = { top: 30, bottom: 30, left: 30, right: 30 };
         const height = 600;// - margin.top - margin.bottom;
         const width = 600;// - margin.left - margin.right;
@@ -70,7 +69,6 @@
             .attr('x', width / 2)
             .attr('y', y(0)+margin.bottom)
             .style("text-anchor", "middle")
-            .style('font-family', 'Arial')
             .text('Number of Children in Household');
 
         svg.append('g')
@@ -107,7 +105,6 @@
           .attr('x', width / 2)
           .attr('y', margin.top)
           .style("text-anchor", "middle")
-          .style('font-family', 'Arial')
           .style("font-weight", "bold")
           .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
       }
@@ -121,12 +118,16 @@
  
 
   $: {
+    console.log("step ",step);
+
     if (data.length > 0) {
       updateColors();
     }
   }
 
 function updateColors() {
+  console.log("step ",step);
+
   if (step==1){ //gradient
       d3.selectAll('.barChart')
         .style('fill', d => colorScale(d.reduce_adult));
