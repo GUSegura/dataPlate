@@ -4,7 +4,8 @@
 	
   import Scrolly from "./Scrolly.svelte";
   import ColombiaGrid from "./ColombiaGrid.svelte";
-  import RegBar from "./RegBar.svelte";
+  import RegBar00 from "./RegBar00.svelte";
+  import RegBar01 from "./RegBar01.svelte";
   import StackedBars from "./StackedBars.svelte";
   import MeealPlanGrid from "./MealPlanGrid.svelte"
 	
@@ -39,9 +40,14 @@
     "<p>Try resizing me to see the 'side-by-side' version, compared to the 'text-on-top' version that appears on small screens.</p><p>Want it to always appear 'text-on-top'? Just comment out the media query at the bottom of our styles (as in, leave the styles but comment out the surrounding <code>media</code> query).</p>",
   ];
 
-  const RegBarSteps = [
-    "<p>regular bar1  </p>",
-    "<p>regular bar2 </p>",
+  const RegBar00Steps = [
+    "<h2>As the number of students in a household increased, so did the proportion of students on the meal plan.</h2>\
+    <p>Families with more children are generally more reliant on school meal plans.\nOn average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
+  ]
+  const RegBar01Steps = [
+    "<h2>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h2>\
+    <hp> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
+    <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
   ]
 </script>
 
@@ -76,7 +82,7 @@
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
-        {#each RegBarSteps as text, i}
+        {#each RegBar00Steps as text, i}
           <div class="step" class:active={value === i}>
             <div class="step-content">{@html text}</div>
           </div>
@@ -85,7 +91,23 @@
       </Scrolly>
     </div>
     <div class="sticky">
-      <RegBar step={value} />
+      <RegBar00 step={value} />
+    </div>
+  </div>
+
+  <div class="section-container">
+    <div class="steps-container">
+      <Scrolly bind:value>
+        {#each RegBar01Steps as text, i}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}</div>
+          </div>
+        {/each}
+        <div class="spacer" />
+      </Scrolly>
+    </div>
+    <div class="sticky">
+      <RegBar01 step={value} />
     </div>
   </div>
 

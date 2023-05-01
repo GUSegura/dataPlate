@@ -45,9 +45,9 @@
       function barChart() {
         const margin = { top: 30, bottom: 30, left: 30, right: 30 };
         const height = 600;// - margin.top - margin.bottom;
-        const width = 600;// - margin.left - margin.right;
+        const width = 700;// - margin.left - margin.right;
 
-        let svg = d3.select('.bar-chart-container')
+        let svg = d3.select('.bar-chart-container1')
           .append('svg')
           .attr('width', width)
           .attr('height', height);
@@ -74,32 +74,33 @@
         svg.append('g')
           .attr('transform', `translate(${margin.left}, 0)`)
           .call(d3.axisLeft(y));
-        
-        
-        svg.append('text') //y axis label- Fix
-          .attr("class", "y-label")
-          .attr("x", -height/2)
-          .attr("y", margin.left/2)
-          .attr('transform', 'rotate(-90)')
-          .style("text-anchor", "middle")
-          .style('font-family', 'Arial')
-          .text('Proportion of Students Receiving Meal Plan');
-        
-        svg.selectAll('.barChart')
+
+        var colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
+          .domain([0, 5])
+          .interpolator(d3.interpolateRgb("#FFFFFF", "#145e90"));
+        svg.selectAll('.barChart1')
           .data(aggData)
           .join('rect')
-          .attr('class', 'barChart')
+          .attr('class', 'barChart1')
           .attr('x', d => x(d.students_in_hh))
           .attr('y', d => y(d.proportion))
           .attr('width', x.bandwidth())
           .attr('height', d => y(0) - y(d.proportion))
-          .attr('fill', '#0595b3')
+          .style('fill', d => colorScale(d.reduce_adult))
           .on('mouseover', function(event, d) {
             console.log('Event:',event);
             console.log('Students in household:', d.students_in_hh);
             console.log('Proportion receiving meal plan:', d.proportion); 
-            console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult))   
-          });
+            console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult));
+            d3.select(this).transition()
+              .duration('400')
+              .attr('opacity', '.80');   
+          })
+          .on('mouseout', function() {
+            d3.select(this).transition()
+              .duration('400')
+              .attr('opacity', '1');
+          }); 
 
         svg.append('text') //title
           .attr('x', width / 2)
@@ -107,48 +108,69 @@
           .style("text-anchor", "middle")
           .style("font-weight", "bold")
           .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
+        var defs = svg.append("defs");
+        var linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient");
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+        linearGradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", "#FFFFFF"); //white
+        linearGradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", "#145e90"); //dark blue  
+        svg.append("rect")
+          .attr("class","legend")
+          .attr("x",505)
+          .attr("y",47)
+          .attr("font", "sans-serif")
+          .attr("width", 100)
+          .attr("height", 20)
+          .style("fill","url(#linear-gradient)")
+        for (let i=0;i<6;i++){
+          svg.append("text")
+            .attr("class","legend")
+            .attr("x", 502+i*20)
+            .attr("y", 75)
+            .attr("alignment-baseline","middle")
+            .text(i.toString())
+            .style("font-size", "8px")
+            // .style('fill', '#444444')
+        }
+        svg.append("text")
+          .attr("class","legend")
+          .attr("x", 200)
+          .attr("y", 55)
+          .text("Days adults in the household reduced food consumption")
+          .style("font-size", "12px")
+        svg.append("text")
+          .attr("class","legend")
+          .attr("x", 200)
+          .attr("y", 67)
+          .attr("alignment-baseline","middle")
+          .text("so that young children could eat (out of the last 7 days)")
+          .style("font-size", "12px")
       }
       barChart();
     });
-     
 
-  var colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
-    .domain([0, 7])
-    .interpolator(d3.interpolateRgb("#FFFFFF", "#145e90"));
- 
-
-  $: {
-    console.log("step ",step);
-
-    if (data.length > 0) {
-      updateColors();
-    }
-  }
-
-function updateColors() {
-  console.log("step ",step);
-
-  if (step==1){ //gradient
-      d3.selectAll('.barChart')
-        .style('fill', d => colorScale(d.reduce_adult));
-        //TODO- add legend
-    } else if (step==0){
-      d3.selectAll('.barChart')
-        .style('fill', '#0595b3');
-    }
-}
 </script>
 
 <div 
-  class="bar-chart-container">
+  class="bar-chart-container1">
 </div>
 
 <style>
-  .bar-chart-container {
+  .bar-chart-container1 {
+    /* transform: translate(-50%, -50%); */
     height: 80vh;
     max-width: 100%;
         background: linear-gradient(to bottom right, #dbc7a9 -100%, white 100%);
         border-radius: 5px;
         box-shadow: 1px 1px 6px #cecece;
   }
+
   </style> 
