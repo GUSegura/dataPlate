@@ -158,6 +158,10 @@
 		overflow-x: hidden;
     background-color: #f9f5f1;
 	}
+
+  *{
+    font-family: Arial;
+  }
 	
 	.hero {
 		display: flex;
