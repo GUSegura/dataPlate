@@ -4,16 +4,13 @@
   export let step;
   let width;
   let height;
-  let data_file = "src/EFSA Colombiana_dataset_2022.csv";
   let data = [];
   let aggData = [];
 
   onMount(async () => {
     try {
-      const response = await fetch(data_file);
-      const csvData = await response.text();
-      // Parse the CSV data and format it for the chart
-      data = d3.csvParse(csvData).map((d) => {
+      data = await d3.csv('https://raw.githubusercontent.com/GUSegura/Colombia_data/master/data.csv');
+      data = data.map((d) => {
         return {
           students_in_hh: (d.nr_escuela_colegio === '_') ? 0 : +d.nr_escuela_colegio,
           receives_meal_plan: (d.nr_PAE === '_') ? 0 : +d.nr_PAE,

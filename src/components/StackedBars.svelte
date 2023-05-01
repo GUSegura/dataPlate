@@ -4,7 +4,6 @@
   export let step;
   let width;
   let height;
-  let data_file = "src/EFSA Colombiana_dataset_2022.csv";
   
   let colombia_dataset = [];
   
@@ -54,9 +53,8 @@
   onMount(async () => {
     try {
 
-      const response = await fetch(data_file);
-      const csvData = await response.text();
-      colombia_dataset = d3.csvParse(csvData).map((d) => {
+      colombia_dataset = await d3.csv('https://raw.githubusercontent.com/GUSegura/Colombia_data/master/data.csv');
+      colombia_dataset = colombia_dataset.map((d) => {
         return {
           fcs_score: (d.fcs === '_') ? 0 : +d.fcs,
           fcs_carne: (d.fcs_carne === '_') ? 0 : +d.fcs_carne,
