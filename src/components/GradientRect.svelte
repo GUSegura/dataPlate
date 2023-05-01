@@ -17,10 +17,10 @@
         {/each}
       </linearGradient>
     </defs>
-    <rect class="legend" x={x} y={y} width={width} height={height} fill="url(#gradient-rect)" />
+    <rect x={x} y={y} width={width} height={height} fill="url(#gradient-rect)" />
     {#each Array.from(Array(6).keys()) as i}
-      <text class="legend" x={x + i * (width / 5)} y={y + height + 10} font-size="10px">{i}</text>
+      <text x={x + i * (width / 5)} y={y + height + 10} font-size="10px">{i}</text>
     {/each}
-    <text class="legend" x={150} y={y - 25} font-size="12px" text-anchor="middle">Days adults in the household reduced food consumption</text>
-    <text class="legend" x={150} y={y - 13} font-size="12px" text-anchor="middle">so that young children could eat (out of the last 7 days)</text>
+    <text x={150} y={y - 25} font-size="12px" text-anchor="middle">Days adults in the household reduced food consumption</text>
+    <text x={150} y={y - 13} font-size="12px" text-anchor="middle">so that young children could eat (out of the last 7 days)</text>
   </svg>

@@ -44,8 +44,8 @@
       }
       function barChart() {
         const margin = { top: 30, bottom: 30, left: 30, right: 30 };
-        const height = 700;// - margin.top - margin.bottom;
-        const width = 700;// - margin.left - margin.right;
+        // const height = 700;// - margin.top - margin.bottom;
+        // const width = 700;// - margin.left - margin.right;
 
         let svg = d3.select('.bar-chart-container')
           .append('svg')
@@ -140,7 +140,9 @@ function updateColors() {
 </script>
 
 <div 
-  class="bar-chart-container">
+  class="bar-chart-container"
+  bind:offsetWidth={width}
+  bind:offsetHeight={height}>
 </div>
 
 <style>
