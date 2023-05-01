@@ -46,7 +46,7 @@
 
   const ConcludingSteps = [
     "<h2>One way to mitigate food insecurity among Colombian youth is by reforming the school meal plans.</h2>\
-    <p>By doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.</p>",
+    <p>In doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.</p>",
   ];
 
 </script>
@@ -62,7 +62,7 @@
 	</div>
   <div class="intro" style='font-size: 20px;'>
     <p> 
-      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
+      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children, focusing on nutrition.
     </p>
     <p style="font-weight:bold; justify-content: center;">
       Scroll down to start.
