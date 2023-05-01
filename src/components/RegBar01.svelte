@@ -166,9 +166,12 @@
     /* transform: translate(-50%, -50%); */
     height: 80vh;
     max-width: 100%;
-        background: linear-gradient(to bottom right, #dbc7a9 -100%, white 100%);
-        border-radius: 5px;
-        box-shadow: 1px 1px 6px #cecece;
+    background: linear-gradient(to bottom right, #dbc7a9 -100%, white 100%);
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px #cecece;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   </style> 
