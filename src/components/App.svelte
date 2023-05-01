@@ -14,7 +14,7 @@
   "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>Of these, <span style='font-weight:bold;'>47%</span> were households with <span style='font-weight:bold; color:#0595b3;'>students</span></p>",
   "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>49% of the <span style='font-weight:bold; color:#0595b3;'>households with students</span> relied on the <span style='font-weight:bold; color:#A491D3;'>school meal plan</span> </p>",
   "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> That is, 1 out of every 5 Colombian households participated in the school meal plan.</p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> Focusing on the food security and nutrition of this population provides us with insights into...</p>"];
+  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> Focusing on the food security and nutrition of this population provides us with insights into the nutritional effectiveness of the meal plans</p>"];
 
   const MealPlanGridSteps = [
   "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> How can the meal plan be improved? </p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> We can consider the quality of the diet of <span style='font-weight:bold; color: #A491D3;'>meal plan households</span></p>",
@@ -47,19 +47,16 @@
 
 <section>
 	<div class='hero'>
-		<h1 style='font-family: Arial; line-height: 160%'> 
+		<h1 style='font-family: Arial; font-size: 100px;'> 
 			DataPlate
 		</h1>
-    <h2 style='font-family: Arial; line-height: 160%'> 
-			Examining the Nutrition of Columbian Youth 
+    <h2 style='font-family: Arial;'> 
+			Adapting the student meal plan to the needs of the Colombian household!
 		</h2>
 	</div>
   <div class="intro">
     <p> 
-      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a nutritional lens to make sure vulnerable groups are able to access a nutritious diet. 
-    </p>
-    <p>
-      In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
+      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a nutritional lens to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
     </p>
     <p style="font-weight:bold; justify-content: center;">
       Scroll down to start.
@@ -137,19 +134,22 @@
 <style>
 	:global(body) {
 		overflow-x: hidden;
+    background-color: #f9f5f1;
 	}
 	
 	.hero {
-		height: 60vh;
 		display: flex;
 		place-items: center;
 		flex-direction: column;
 		justify-content: center;
 		text-align: left;
 	}
-	
+	.hero h1 {
+		margin-bottom: 0;
+		font-weight: 200;
+	}
 	.hero h2 {
-		margin-top: 0;
+		margin-bottom: 100;
 		font-weight: 200;
 	}
 	
@@ -180,7 +180,7 @@
 
   .step-content {
     font-size: 1rem;
-    background: whitesmoke;
+    background: #f9f5f1;
     color: #ccc;
     border-radius: 5px;
     padding: .5rem 1rem;
@@ -198,7 +198,7 @@
   .intro{
     font-size: 1rem;
     font-family: Arial;
-    background: whitesmoke;
+    background: #f9f5f1;
     border-radius: 5px;
     padding: .5rem 1rem;
     display: flex;
@@ -206,13 +206,13 @@
     justify-content: center;
     transition: background 500ms ease;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
-    text-align: left;
+    text-align: center;
 		width: 75%;
 		margin: auto;
   }
 
 	.step.active .step-content {
-		background: white;
+		background: #f9f5f1;
 		color: black;
 	}
 	

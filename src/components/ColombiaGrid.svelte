@@ -53,7 +53,7 @@
         );
       
       if (circleSize < 0){
-        circleSize = 5;
+        circleSize = 6;
       }
       else {
         circleSize = 8;
@@ -90,7 +90,7 @@
         updateSize(numCircles);
       }
       if (step == 3) {
-        data.forEach(d => { d.color = d.recieves_meal_plan > 0 ? "#A491D3" : "#ECE3D4" });
+        data.forEach(d => { d.color = d.recieves_meal_plan > 0 ? "#A491D3" : "#f9f5f1" });
         filteredData = data;
         let numCircles = filteredData.length;
         updateSize(numCircles);
@@ -135,7 +135,7 @@
     .chart-container {
       height: 80vh;
       max-width: 100%;
-          background: #ECE3D4;
+          background: #f9f5f1;
           border-radius: 5px;
           box-shadow: 1px 1px 6px #cecece;
     }

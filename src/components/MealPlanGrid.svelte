@@ -119,7 +119,7 @@ bind:offsetHeight={height}
   .chart-container {
     height: 80vh;
     max-width: 100%;
-        background: #ECE3D4;
+        background: #f9f5f1;
         border-radius: 5px;
         box-shadow: 1px 1px 6px #cecece;
   }
