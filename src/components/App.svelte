@@ -30,7 +30,7 @@
 
   "<h2 style='font-family: Arial; line-height: 160%'><strong>65%</strong> of all households eat vegetables <span style='font-weight:bold; color:#ba9a56;''>less than twice a week</span>.</h2>\
    <p style='font-family: Arial; font-size: 22px; line-height: 160%'>In Colombia, the average adult over 20 years old consumes only 32% of the recommended vegetable intake.</p>\
-   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake is largely missing from the literature.</p>",
+   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake, either through school or household meals, is largely missing from the literature.</p>",
   
   "<h2 style='font-family: Arial; line-height: 160%'>Choose a food group to learn more about the eating habits of meal-plan households.</h2>"
 ];
@@ -43,6 +43,12 @@
     <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
   ];
 
+
+  const ConcludingSteps = [
+    "<h2>One way to mitigate food insecurity among Colombian youth is by reforming the school meal plans.</h2>\
+    <p>By doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.</p>",
+  ];
+
 </script>
 
 <section>
@@ -51,12 +57,12 @@
 			DataPlate
 		</h1>
     <h2 style='font-family: Arial;'> 
-			Adapting the student meal plan to the needs of the Colombian household!
+			Adapting the student meal plan to the needs of the Colombian household through a nutritional lens
 		</h2>
 	</div>
-  <div class="intro">
+  <div class="intro" style='font-size: 20px;'>
     <p> 
-      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a nutritional lens to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
+      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children with a focus on nutrition.
     </p>
     <p style="font-weight:bold; justify-content: center;">
       Scroll down to start.
@@ -140,6 +146,22 @@
       <StackedBars step={value} />
     </div>
   </div>
+
+<div class="section-container">
+  <div class="steps-container">
+    <Scrolly bind:value>
+      {#each ConcludingSteps as text, i}
+        <div class="step" class:active={value === i}>
+          <div class="step-content">{@html text}</div>
+        </div>
+      {/each}
+      <div class="spacer" />
+    </Scrolly>
+  </div>
+  <!-- <div class="sticky">
+    <StackedBars step={value} />
+  </div> -->
+</div>
 </section>
 
 <style>
