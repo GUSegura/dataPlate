@@ -40,7 +40,7 @@
     <p>Families with more children are generally more reliant on school meal plans.\nOn average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
     "<h2>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h2>\
     <hp> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
-    <p class='prev-text'>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
+    <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
   ];
 
 //   const RegBarSteps = [
