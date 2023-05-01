@@ -4,13 +4,15 @@
   export let step;
   let width;
   let height;
+  let data_file = "src/EFSA Colombiana_dataset_2022.csv";
   let data = [];
   let aggData = [];
 
   onMount(async () => {
     try {
-      // Parse the CSV data and format it for the chart
       data = await d3.csv('https://raw.githubusercontent.com/GUSegura/Colombia_data/master/data.csv');
+
+      // Parse the CSV data and format it for the chart
       data = data.map((d) => {
         return {
           students_in_hh: (d.nr_escuela_colegio === '_') ? 0 : +d.nr_escuela_colegio,
@@ -42,10 +44,10 @@
       }
       function barChart() {
         const margin = { top: 30, bottom: 30, left: 30, right: 30 };
-        const height = 600;// - margin.top - margin.bottom;
+        const height = 700;// - margin.top - margin.bottom;
         const width = 700;// - margin.left - margin.right;
 
-        let svg = d3.select('.bar-chart-container0')
+        let svg = d3.select('.bar-chart-container')
           .append('svg')
           .attr('width', width)
           .attr('height', height);
@@ -73,10 +75,20 @@
           .attr('transform', `translate(${margin.left}, 0)`)
           .call(d3.axisLeft(y));
         
-        svg.selectAll('.barChart0')
+        
+        // svg.append('text') //y axis label- Fix
+        //   .attr("class", "y-label")
+        //   .attr("x", -height/2)
+        //   .attr("y", margin.left/2)
+        //   .attr('transform', 'rotate(-90)')
+        //   .style("text-anchor", "middle")
+        //   .style('font-family', 'Arial')
+        //   .text('Proportion of Students Receiving Meal Plan');
+        
+        svg.selectAll('.barChart')
           .data(aggData)
           .join('rect')
-          .attr('class', 'barChart0')
+          .attr('class', 'barChart')
           .attr('x', d => x(d.students_in_hh))
           .attr('y', d => y(d.proportion))
           .attr('width', x.bandwidth())
@@ -86,15 +98,8 @@
             console.log('Event:',event);
             console.log('Students in household:', d.students_in_hh);
             console.log('Proportion receiving meal plan:', d.proportion); 
-            d3.select(this).transition()
-              .duration('400')
-              .attr('opacity', '.80');
-          })
-          .on('mouseout', function() {
-            d3.select(this).transition()
-              .duration('400')
-              .attr('opacity', '1');
-          }); 
+            console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult))   
+          });
 
         svg.append('text') //title
           .attr('x', width / 2)
@@ -105,21 +110,47 @@
       }
       barChart();
     });
+     
 
+  var colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
+    .domain([0, 7])
+    .interpolator(d3.interpolateRgb("#FFFFFF", "#145e90"));
+ 
+
+  $: {
+    console.log("step ",step);
+
+    if (data.length > 0) {
+      updateColors();
+    }
+  }
+
+function updateColors() {
+  console.log("step ",step);
+
+  if (step==1){ //gradient
+      d3.selectAll('.barChart')
+        .style('fill', d => colorScale(d.reduce_adult));
+        //TODO- add legend
+    } else if (step==0){
+      d3.selectAll('.barChart')
+        .style('fill', '#0595b3');
+    }
+}
 </script>
 
 <div 
-  class="bar-chart-container0">
+  class="bar-chart-container">
 </div>
 
 <style>
-  .bar-chart-container0 {
+  .bar-chart-container {
     height: 80vh;
     max-width: 100%;
     background: #f9f5f1;
     border-radius: 5px;
     box-shadow: 1px 1px 6px #cecece;
-    display: flex;
+  display: flex;
     justify-content: center;
     align-items: center;
   }

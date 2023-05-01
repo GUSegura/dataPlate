@@ -4,10 +4,11 @@
 	
   import Scrolly from "./Scrolly.svelte";
   import ColombiaGrid from "./ColombiaGrid.svelte";
-  import RegBar00 from "./RegBar00.svelte";
-  import RegBar01 from "./RegBar01.svelte";
+  import RegBar from "./RegBar.svelte";
   import StackedBars from "./StackedBars.svelte";
   import MeealPlanGrid from "./MealPlanGrid.svelte"
+  import GradientRect from './GradientRect.svelte';
+
 	
   let value;
   const ColombiaGridSteps = [
@@ -34,21 +35,31 @@
   "<h2 style='font-family: Arial; line-height: 160%'>Choose a food group to learn more about the eating habits of meal-plan households.</h2>"
 ];
 
-  const steps = [
-		 "<p>This is a dynamic, responsive scatterplot that uses Russell Goldenberg's <a href='	https://twitter.com/codenberg/status/1432774653139984387' target='_blank'><code>Scrolly</code></a> to update its points' values on scroll.</p>",
-    "<p>The scatterplot uses tweened values to automatically update your points with smooth transitions. It also binds to the width of the container <code>div</code>, so its responsive by default.</p>",
-    "<p>Try resizing me to see the 'side-by-side' version, compared to the 'text-on-top' version that appears on small screens.</p><p>Want it to always appear 'text-on-top'? Just comment out the media query at the bottom of our styles (as in, leave the styles but comment out the surrounding <code>media</code> query).</p>",
-  ];
-
-  const RegBar00Steps = [
+  const RegBarSteps = [
     "<h2>As the number of students in a household increased, so did the proportion of students on the meal plan.</h2>\
     <p>Families with more children are generally more reliant on school meal plans.\nOn average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
-  ]
-  const RegBar01Steps = [
     "<h2>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h2>\
     <hp> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
-    <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
-  ]
+    <p class='prev-text'>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
+  ];
+
+//   const RegBarSteps = [
+//   {
+//     text: "<h2>As the number of students in a household increased, so did the proportion of students on the meal plan.</h2>\
+//     <p>Families with more children are generally more reliant on school meal plans.\nOn average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
+//   },
+//   {
+//     text: "<h2>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h2>\
+//     <hp> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
+//     <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
+//     gradientRect: {
+//       x: 0,
+//       y: 0,
+//       width: 100,
+//       height: 20
+//     }
+//   }
+// ];
 </script>
 
 <section>
@@ -86,36 +97,31 @@
     </div>
   </div>
 
-<!-- AZ -->
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
-        {#each RegBar00Steps as text, i}
+        {#each RegBarSteps as text, i}
+        {#if i === 0}
           <div class="step" class:active={value === i}>
             <div class="step-content">{@html text}</div>
           </div>
+        {/if} 
+        {#if i === 1}
+          <div class="step" class:active={value === i}>
+            <div class="step-content">{@html text}
+              <div class="gradient-rect-container">
+                <GradientRect />
+              </div>
+            </div>
+          </div>
+    
+        {/if}
         {/each}
         <div class="spacer" />
       </Scrolly>
     </div>
     <div class="sticky">
-      <RegBar00 step={value} />
-    </div>
-  </div>
-
-  <div class="section-container">
-    <div class="steps-container">
-      <Scrolly bind:value>
-        {#each RegBar01Steps as text, i}
-          <div class="step" class:active={value === i}>
-            <div class="step-content">{@html text}</div>
-          </div>
-        {/each}
-        <div class="spacer" />
-      </Scrolly>
-    </div>
-    <div class="sticky">
-      <RegBar01 step={value} />
+      <RegBar step={value} />
     </div>
   </div>
 
@@ -251,6 +257,19 @@
     flex: 1 1 40%;
     z-index: 10;
   }
+ .prev-text {
+  position: relative;
+}
+
+.gradient-rect-container {
+  /* left: 50%; */
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+
+
+} 
+
 	
 /* Comment out the following line to always make it 'text-on-top' */
   @media screen and (max-width: 768px) {
