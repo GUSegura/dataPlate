@@ -46,6 +46,23 @@
         sometimes: 0, 
         often: 0 
       }
+    },
+    fruit: {
+      poor: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      },
+      borderline: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      },
+      acceptable: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      }
     }
 
   };
@@ -59,9 +76,11 @@
           fcs_score: (d.fcs === '_') ? 0 : +d.fcs,
           fcs_carne: (d.fcs_carne === '_') ? 0 : +d.fcs_carne,
           fcs_vegetales: (d.fcs_vegetales === '_') ? 0 : +d.fcs_vegetales,
+          fcs_frutas: (d.fcs_frutas === '_') ? 0 : +d.fcs_frutas,
           recieves_meal_plan: (d.nr_PAE === '_') ? 0 : +d.nr_PAE,
           fcs_status: null,
           fcs_status_meat: null,
+          fcs_status_fruit: null,
           fcs_status_vegetables: null
         };
       });
@@ -70,10 +89,15 @@
   colombia_dataset.forEach(d => { 
       d.fcs_status = d.fcs_score > 21 ? d.fcs_score > 35 ? "acceptable" : "borderline" : "poor" 
       updateFcsCount(fcs_count.total, d.fcs_status);
+
       d.fcs_status_meat = d.fcs_carne > 3 ? d.fcs_carne > 5 ? "often" : "sometimes" : "rarely" 
       updateFcsCount(fcs_count.meat, d.fcs_status, d.fcs_status_meat);
+      
       d.fcs_status_vegetables = d.fcs_vegetales > 3 ? d.fcs_vegetales > 5 ? "often" : "sometimes" : "rarely" 
       updateFcsCount(fcs_count.vegetables, d.fcs_status, d.fcs_status_vegetables);
+
+      d.fcs_status_fruit = d.fcs_frutas > 3 ? d.fcs_frutas > 5 ? "often" : "sometimes" : "rarely" 
+      updateFcsCount(fcs_count.fruit, d.fcs_status, d.fcs_status_fruit);
     });
 
 
@@ -134,10 +158,10 @@ function generateData(food_group){
 }
  
 // console.log("all count information", fcs_count)
-// console.log("The data passed in:", data);
+
 function renderChart(food_group) {
+      
       let data = generateData(food_group);
-      console.log("The data being used: ", data);
       let svg = d3.select('.chart-container-bars svg');
       svg.selectAll("*").remove();
       
@@ -185,7 +209,6 @@ function renderChart(food_group) {
             d3.select(this).transition()
               .duration('400')
               .attr('opacity', '1');
-            // d3.select(this).select('title').remove();
           }); 
           svg.append("g")
             .attr("transform", "translate(0, 58)") // Position at the bottom of the chart
@@ -198,81 +221,210 @@ function renderChart(food_group) {
               .style("font-weight", "bold")
               .attr("text-anchor", "middle");
           svg.selectAll(".domain, .tick line").remove();
-// legend:
-          let y_pos_l = -16; // closer to 0 is lower
-          let square_size = 2;
-          let spacing = 3.3;
-          let text_space = 1.1;
-
-          svg.append("rect")
-            .attr("x",100)
-            .attr("y",y_pos_l)
-            .attr("font", "sans-serif")
-            .attr("width", square_size)
-            .attr("height", square_size)
-            .style("fill", color_pal[2])
-            // .attr("transform", "translate(0, 100)")            
-          svg.append("text")
-            .attr("x", 104)
-            .attr("y", y_pos_l + text_space)
-            .attr("alignment-baseline","middle")
-            .text("6 - 7 days")
-            .style("font-size", "2.3px")
-            .style('fill', '#444444')
-            .style('font-family', '"Open Sans", sans-serif')
-
-          svg.append("rect")
-            .attr("x",100)
-            .attr("y",y_pos_l + spacing)
-            .attr("font", "sans-serif")
-            .attr("width", square_size)
-            .attr("height", square_size)
-            .style("fill", color_pal[1])
-            // .attr("transform", "translate(0, 100)")            
-          svg.append("text")
-            .attr("x", 104)
-            .attr("y", y_pos_l + spacing + text_space)
-            .attr("alignment-baseline","middle")
-            .text("3 - 5 days")
-            .style("font-size", "2.3px")
-            .style('fill', '#444444')
-            .style('font-family', '"Open Sans", sans-serif')
-
-          svg.append("rect")
-            .attr("x",100)
-            .attr("y",y_pos_l + 2*spacing)
-            .attr("font", "sans-serif")
-            .attr("width", square_size)
-            .attr("height", square_size)
-            .style("fill", color_pal[0])
-            // .attr("transform", "translate(0, 100)")            
-          svg.append("text")
-            .attr("x", 104)
-            .attr("y", y_pos_l + 2*spacing + text_space)
-            .attr("alignment-baseline","middle")
-            .text("0 - 2 days")
-            .style("font-size", "2.3px")
-            .style('fill', '#444444')
-            .style('font-family', '"Open Sans", sans-serif')                        
+// LEGEND:
+          makeLegend(svg, color_pal);                     
             
-            // .attr("transform", "translate(0, 100)")
-  
+// "In the past week how many days..."
+          svg.append("text")
+            .attr("x", 16)
+            .attr("y", -19)
+            .attr("alignment-baseline","middle")
+            .text("In the past week, how many days did you eat")
+            .style("font-size", "3px")
+            .style("font-weight", "bold")
+            .style('fill', '#555555')
+            .style('font-family', '"Open Sans", sans-serif')  
+// DROPDOWN
 
-              
+let options = ["Vegetables", "Meat", "Staples", "Fruit"]
+          svg.append("rect")
+            .attr("x",16)
+            .attr("y",-16)
+            .attr("font", "sans-serif")
+            .attr("width", 25)
+            .attr("height", 7)
+            .style("fill", '#EEEEEE')  
+            .on('mouseover', function() {
+              d3.select(this).transition()
+                .duration('400')
+                .attr('opacity', '.80');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('400')
+                .attr('opacity', '1');
+            })
+            .on('mouseout', function() {
+              d3.select(this).transition()
+                .duration('400')
+                .attr('opacity', '1');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('400')
+                .attr('opacity', '0');
+            });
+                 
+          addDropdown(svg, options);   
+          let title = food_group.charAt(0).toUpperCase() + food_group.substr(1).toLowerCase();     
+          svg.append("text")
+            .attr("x", 17.3)
+            .attr("y", -12.2)
+            .attr("alignment-baseline","middle")
+            .text(title)
+            .style("font-size", "4.2px")
+            .style("font-weight", "bold")
+            .style('fill', '#328fcf')
+            .style('font-family', '"Open Sans", sans-serif')   
+            .on('mouseover', function() {
+              d3.select(this).transition()
+                .duration('400')
+                .attr('opacity', '.80');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('400')
+                .attr('opacity', '1');
+            })
+            .on('mouseout', function() {
+              d3.select(this).transition()
+                .duration('400')
+                .attr('opacity', '1');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('400')
+                .attr('opacity', '0');
+            });
+                
 }
-  //replace to choose default food group            
+  //replace to CHOOSE DEFAULT food group            
   renderChart("vegetables");
+  
+  function addDropdown(svg, options){
+    let options_y = -16;
+    for (var i = 0; i < options.length; i++) {
+          let group = options[i];
+          svg.append("rect")
+          .attr("class", "dropdown")
+          .attr("x",41)
+          .attr("y",options_y)
+          .attr("font", "sans-serif")
+          .attr("width", 15)
+          .attr("height", 3.2)
+          .style("fill", '#EEEEEE')   
+          .on('mouseover', function() {
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('200')
+                .attr('opacity', '1');
 
-  document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-  radio.addEventListener('change', function(event) {
-    renderChart(event.target.value);
-  });
-});
-      } catch (error) {
+            })
+          .on('mouseout', function() {
+              d3.select(this).transition()
+                .duration('200')
+                .attr('opacity', '1');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('200')
+                .attr('opacity', '0');
+            })
+            .on('click', function() {              
+              renderChart(group.toLowerCase());
+            });          
+   
+        svg.append("text")
+          .attr("class", "dropdown")
+          .attr("x", 41.5)
+          .attr("y", options_y + 1.7)
+          .attr("alignment-baseline","middle")
+          .text(group)
+          .style("font-size", "2px")
+          .style("font-weight", "bold")
+          .style('fill', '#999999')
+          .style('font-family', '"Open Sans", sans-serif')  
+          .on('mouseover', function() {
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('200')
+                .attr('opacity', '1');
+
+            })
+          .on('mouseout', function() {
+              d3.select(this).transition()
+                .duration('200')
+                .attr('opacity', '1');
+              let dropDown = d3.selectAll('.dropdown');
+              dropDown.transition()
+                .duration('200')
+                .attr('opacity', '0');
+
+            })
+            .on('click', function() {              
+              renderChart(group.toLowerCase());
+            });            
+        
+        options_y = options_y + 3.1;
+        }
+        d3.selectAll('.dropdown').attr('opacity', '0');
+
+      }    
+
+  function makeLegend(svg, color_pal){
+      let y_pos_l = -19; // closer to 0 is lower
+        let square_size = 2;
+        let spacing = 3.3;
+        let text_space = 1.1;
+
+        svg.append("rect")
+          .attr("x",100)
+          .attr("y",y_pos_l)
+          .attr("font", "sans-serif")
+          .attr("width", square_size)
+          .attr("height", square_size)
+          .style("fill", color_pal[2])          
+        svg.append("text")
+          .attr("x", 104)
+          .attr("y", y_pos_l + text_space)
+          .attr("alignment-baseline","middle")
+          .text("6 - 7 days")
+          .style("font-size", "2.3px")
+          .style('fill', '#444444')
+          .style('font-family', '"Open Sans", sans-serif')
+
+        svg.append("rect")
+          .attr("x",100)
+          .attr("y",y_pos_l + spacing)
+          .attr("font", "sans-serif")
+          .attr("width", square_size)
+          .attr("height", square_size)
+          .style("fill", color_pal[1])          
+        svg.append("text")
+          .attr("x", 104)
+          .attr("y", y_pos_l + spacing + text_space)
+          .attr("alignment-baseline","middle")
+          .text("3 - 5 days")
+          .style("font-size", "2.3px")
+          .style('fill', '#444444')
+          .style('font-family', '"Open Sans", sans-serif')
+
+        svg.append("rect")
+          .attr("x",100)
+          .attr("y",y_pos_l + 2*spacing)
+          .attr("font", "sans-serif")
+          .attr("width", square_size)
+          .attr("height", square_size)
+          .style("fill", color_pal[0])          
+        svg.append("text")
+          .attr("x", 104)
+          .attr("y", y_pos_l + 2*spacing + text_space)
+          .attr("alignment-baseline","middle")
+          .text("0 - 2 days")
+          .style("font-size", "2.3px")
+          .style('fill', '#444444')
+          .style('font-family', '"Open Sans", sans-serif')   
+
+      }
+    } catch (error) {
         console.error(error);
       }
     });
-  
   </script>
   
   <div
@@ -280,14 +432,11 @@ function renderChart(food_group) {
   bind:offsetWidth={width}
   bind:offsetHeight={height}
 >
-  <svg width="100%" height="auto" viewBox="0 0 130 48"></svg> 
+    <div class="dropdown-container"></div>
+    
+  <svg width="100%" height="auto" viewBox="0 0 130 40"></svg> 
 </div>
 
-<input type="radio" name="food_group" value="vegetables" id="vegetables" checked="checked">
-<label for="vegetables">Vegetables</label>
-<br>
-<input type="radio" name="food_group" value="meat" id="meat">
-<label for="meat">Meat</label>
 
 <style>
   .chart-container-bars {
@@ -298,10 +447,23 @@ function renderChart(food_group) {
         box-shadow: 1px 1px 6px #cecece;
   }
     
-  .chart-container-bars svg {
+  .chart-container-bars svg{
     transform: translate(-50%, -50%);
     position: absolute;
     top: 48%;
     left: 50%;
   }    
+  .dropdown-container {
+    height: 80vh;
+    max-width: 100%;
+        background: #f9f5f1;
+        border-radius: 5px;
+        box-shadow: 1px 1px 6px #cecece;
+  }
+  .dropdown-container svg{
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 48%;
+    left: 50%;
+  }
 </style>
