@@ -74,16 +74,8 @@
         svg.append('g')
           .attr('transform', `translate(${margin.left}, 0)`)
           .call(d3.axisLeft(y));
-        
-        
-        // svg.append('text') //y axis label- Fix
-        //   .attr("class", "y-label")
-        //   .attr("x", -height/2)
-        //   .attr("y", margin.left/2)
-        //   .attr('transform', 'rotate(-90)')
-        //   .style("text-anchor", "middle")
-        //   .style('font-family', 'Arial')
-        //   .text('Proportion of Students Receiving Meal Plan');
+
+
         
         svg.selectAll('.barChart')
           .data(aggData)
@@ -94,12 +86,45 @@
           .attr('width', x.bandwidth())
           .attr('height', d => y(0) - y(d.proportion))
           .attr('fill', '#0595b3')
-          .on('mouseover', function(event, d) {
-            console.log('Event:',event);
-            console.log('Students in household:', d.students_in_hh);
-            console.log('Proportion receiving meal plan:', d.proportion); 
-            console.log('coping:', d.reduce_adult, colorScale(d.reduce_adult))   
-          });
+          .on('mouseover', function(event, d) { //tooltip
+            d3.select(this).transition() //change opacity when hover
+              .duration('400')
+              .attr('opacity', '.80')
+            let tooltipText = '';
+            if (step === 0) {
+              tooltipText = `Proportion: ${Number(d.proportion.toFixed(3))}`;
+              svg.append('text')
+              .attr('class', 'tooltip')
+              .attr('id', 'tooltip')
+              .attr('x', x(d.students_in_hh) + x.bandwidth() / 2) // center horizontally
+              .attr('y', y(d.proportion) - 20) // above the bar
+              .attr('text-anchor', 'middle')
+              .text(tooltipText);
+            } else if (step === 1) {
+              
+              let tooltipText1 = `Proportion: ${Number(d.proportion.toFixed(3))}`;
+              let tooltipText2 = `Coping Score: ${Number(d.reduce_adult.toFixed(3))}`;
+              svg.append('text')
+                .attr('class', 'tooltip')
+                .attr('id', 'tooltip')
+                .attr('text-anchor', 'middle')
+                .append('svg:tspan')
+                .attr('x', x(d.students_in_hh) + x.bandwidth() / 2) // center horizontally
+                .attr('y', y(d.proportion) - 30) // above the bar
+                .text(tooltipText1)
+                .append('svg:tspan')
+                .attr('x', x(d.students_in_hh) + x.bandwidth() / 2) // center horizontally
+                .attr('y', y(d.proportion) - 10) // above the bar
+                .text(tooltipText2);
+            }
+         })
+
+          .on('mouseout', function() { //normal opacity
+            svg.select('.tooltip').remove();
+            d3.select(this).transition()
+              .duration('400')
+              .attr('opacity', '1');
+          }); 
 
         svg.append('text') //title
           .attr('x', width / 2)
@@ -121,22 +146,23 @@
     console.log("step ",step);
 
     if (data.length > 0) {
+      // barChart();
       updateColors();
     }
   }
 
 function updateColors() {
   console.log("step ",step);
-
-  if (step==1){ //gradient
-      d3.selectAll('.barChart')
-        .style('fill', d => colorScale(d.reduce_adult));
-        //TODO- add legend
-    } else if (step==0){
-      d3.selectAll('.barChart')
-        .style('fill', '#0595b3');
-    }
+  if (step == 1) { //gradient
+    d3.selectAll('.barChart')
+      .style('fill', d => colorScale(d.reduce_adult));
+     
+  } else if (step == 0) {
+    d3.selectAll('.barChart')
+      .style('fill', '#0595b3');
+  }
 }
+
 </script>
 
 <div 
@@ -152,8 +178,10 @@ function updateColors() {
     background: #f9f5f1;
     border-radius: 5px;
     box-shadow: 1px 1px 6px #cecece;
-  display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
+
+  
   </style> 
