@@ -179,7 +179,7 @@ function renderChart(food_group) {
         .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
         .range([60, 0]);
   
-      let color_pal = ['#d8b365', '#63cfae', '#328fcf']; //yellow, green,blue  
+      let color_pal = ['#f46c6c', '#fcb44c', '#54ae89']; //yellow, green,blue  
       let colors = d3.scaleOrdinal()
         .domain(['poor', 'borderline', 'acceptable'])
         .range(color_pal);
@@ -195,15 +195,10 @@ function renderChart(food_group) {
           .attr('y', d => yScale(d[1]))
           .attr('height', d => yScale(d[0]) - yScale(d[1]))
           .attr('width', xScale.bandwidth())
-          .on('mouseover', function(d) {
+          .on('mouseover', function() {
             d3.select(this).transition()
               .duration('400')
               .attr('opacity', '.80');
-            // uncomment for tooltip on hover:
-
-            // d3.select(this)
-            //   .append('title')
-            //   .text('placeholder');
           })
           .on('mouseout', function() {
             d3.select(this).transition()
@@ -434,7 +429,7 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
 >
     <div class="dropdown-container"></div>
     
-  <svg width="100%" height="auto" viewBox="0 0 130 40"></svg> 
+    <svg width="100%" height="auto" viewBox="-5 0 140 40"></svg> 
 </div>
 
 
@@ -443,8 +438,8 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
     height: 80vh;
     max-width: 100%;
         background: #f9f5f1;
-        border-radius: 5px;
-        box-shadow: 1px 1px 6px #cecece;
+        /* border-radius: 5px;
+        box-shadow: 1px 1px 6px #cecece; */
   }
     
   .chart-container-bars svg{
@@ -457,8 +452,8 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
     height: 80vh;
     max-width: 100%;
         background: #f9f5f1;
-        border-radius: 5px;
-        box-shadow: 1px 1px 6px #cecece;
+        /* border-radius: 5px;
+        box-shadow: 1px 1px 6px #cecece; */
   }
   .dropdown-container svg{
     transform: translate(-50%, -50%);

@@ -12,35 +12,50 @@
 	
   let value;
   const ColombiaGridSteps = [
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> 7,097 Colombian households were surveyed in the <a href='https://docs.wfp.org/api/documents/WFP-0000147247/download/?_ga=2.170658592.1445693605.1682871870-44187498.1677044367'>Colombian Emergency Food Security and Nutrition Assessment (EFSA)</a> </p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>Of these, <span style='font-weight:bold;'>47%</span> were households with <span style='font-weight:bold; color:#0595b3;'>students</span></p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'>49% of the <span style='font-weight:bold; color:#0595b3;'>households with students</span> relied on the <span style='font-weight:bold; color:#A491D3;'>school meal plan</span> </p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> That is, 1 out of every 5 Colombian households participated in the school meal plan.</p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> Focusing on the food security and nutrition of this population provides us with insights into the nutritional effectiveness of the meal plans</p>"];
+  "<h1 style='font-family: Arial; font-size: 30px; line-height: 140%'> <strong>7,097 Colombian households were surveyed </strong> </h1>\
+   <p style='font-family: Arial; font-size: 25px; line-height: 160%'> Our data comes from the <strong>Colombian Emergency Food Security and Nutrition Assessment (EFSA)</strong>.</p>\
+   <p style='font-family: Arial; font-size: 21px; line-height: 160%; color: #999999'>For more information from the World Food Programme (WFP), <a href='https://docs.wfp.org/api/documents/WFP-0000147247/download/?_ga=2.170658592.1445693605.1682871870-44187498.1677044367'; style='color: #328fcf; text-decoration: none'><strong>click here</strong></a>. </p>"
+   ,
+  "<p style='font-family: Arial; font-size: 30px; line-height: 160%'>Of these 7,097 households, <span style='font-weight:bold;'>47%</span> were households with <span style='font-weight:bold; color:#0595b3;'>students</span></p>",
+  "<p style='font-family: Arial; font-size: 30px; line-height: 140%'><strong>49%</strong> of the <span style='font-weight:bold; color:#0595b3;'>households with students</span> relied on the <span style='font-weight:bold; color:#A491D3;'>school meal plan</span> </p>\
+  <p style='font-family: Arial; font-size: 25px; line-height: 160%'>The school meal plan is known as the <strong>Programa de Alimentación Escolar (PAE)</strong>. In 2018, the school meal program consisted of in-school meals provided five times per week for the ten months of the school year.</p>\
+  <p style='font-family: Arial; font-size: 21px; line-height: 160%; color: #999999'>For more information on the PAE from the Global Child Nutrition Foundation (GCNF), <a href='https://docs.wfp.org/api/documents/WFP-0000147247/download/?_ga=2.170658592.1445693605.1682871870-44187498.1677044367'; style='color: #328fcf; text-decoration: none'><strong>click here</strong></a>. </p>",
+  "<p style='font-family: Arial; font-size: 30px; line-height: 160%'> In total, <strong>1 out of every 5</strong> Colombian households participated in the school meal plan.</p>",
+  "<p style='font-family: Arial; font-size: 30px; line-height: 160%'> Examining <strong>access to quality food</strong> and the nutrition of this population provides us with insights into the <strong>effectiveness of the school meal plan.</strong></p>"];
 
   const MealPlanGridSteps = [
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> How can the meal plan be improved? </p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> We can consider the quality of the diet of <span style='font-weight:bold; color: #A491D3;'>meal plan households</span></p>",
-  "<p style='font-family: Arial; font-size: 22px; line-height: 160%'> The <span style='font-weight:bold;'>food consumption score (FCS)</span> is an indicator of diet diversity, meal frequency, and nutritional value.</p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> This index can be used to calculate household food consumption status.</p> <p style='font-family: Arial; font-size: 22px; line-height: 160%'> Households status may be evaluated as <span style='font-weight:bold; color: #54ae89;'>acceptable</span>, <span style='font-weight:bold; color: #fcb44c;'>borderline</span>, or <span style='font-weight:bold; color: #f46c6c;'>poor</span>.</p>"];
+  "<h1 style='font-family: Arial; font-size: 30px; line-height: 140%'> How can the meal plan be improved? </h1> \
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'> We can consider the quality of the diet of <span style='font-weight:bold; color: #A491D3;'>meal plan households</span>.</p>",
+  "<h1 style='font-family: Arial; font-size: 30px; line-height: 140%'> The <span style='font-weight:bold;'>food consumption score (FCS)</span> is an indicator of diet diversity, meal frequency, and nutritional value.</h1> \
+  <p style='font-family: Arial; font-size: 25px; line-height: 160%'> This index can be used to calculate household food consumption status.</p> \
+  <p style='font-family: Arial; font-size: 25px; line-height: 160%'> Households status may be evaluated as <span style='font-weight:bold; color: #54ae89;'>acceptable</span>, <span style='font-weight:bold; color: #fcb44c;'>borderline</span>, or <span style='font-weight:bold; color: #f46c6c;'>poor</span>.</p>"];
 
 
   // sources for data: https://globalnutritionreport.org/resources/nutrition-profiles/latin-america-and-caribbean/south-america/colombia/
   // for malnutrition: https://biomedscis.com/fulltext/epidemiology-of-child-malnutrition-in-colombia.ID.000537.php#:~:text=In%20Colombia%2C%20the%20malnutrition%20rate,decreasing%20trend%20in%20recent%20decades.
-  const StackedBarsSteps = [
-  "<h1 style='font-family: Arial; line-height: 140%'>Diets appear unbalanced <strong>regardless of FCS status.</strong></h2><p style='font-family: Arial; font-size: 22px; line-height: 160%'>Even in meal-plan households with 'acceptable' consumption, <strong>many vital food groups are absent.</strong></p>",
-
-  "<h2 style='font-family: Arial; line-height: 160%'><strong>65%</strong> of all households eat vegetables <span style='font-weight:bold; color:#ba9a56;''>less than twice a week</span>.</h2>\
-   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>In Colombia, the average adult over 20 years old consumes only 32% of the recommended vegetable intake.</p>\
-   <p style='font-family: Arial; font-size: 22px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake, either through school or household meals, is largely missing from the literature.</p>",
   
-  "<h2 style='font-family: Arial; line-height: 160%'>Choose a food group to learn more about the eating habits of meal-plan households.</h2>"
+  const BeforeStackedBars = [
+  "<h1 style='font-family: Arial; line-height: 140%'>Diets appear unbalanced <strong>regardless of FCS status.</strong></h2><p style='font-family: Arial; font-size: 22px; line-height: 160%'>Even in meal-plan households with 'acceptable' consumption, <strong>many vital food groups are absent.</strong></p>"
+];
+
+  const StackedBarsSteps = [
+  "<h1 style='font-family: Arial; line-height: 140%; font-size: 30px'>Diets appear unbalanced <strong>regardless of FCS status.</strong></h1>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Even in meal-plan households with 'acceptable' consumption, <strong>many vital food groups are absent.</strong></p>",
+
+  "<h1 style='font-family: Arial; line-height: 140%; font-size: 30px'><strong>65%</strong> of all households eat vegetables <span style='font-weight:bold; color:#f46c6c;''>less than twice a week</span>.</h1>\
+   <p style='font-family: Arial; font-size: 25px; line-height: 160%'>In Colombia, the average adult over 20 years old consumes only 32% of the recommended vegetable intake.</p>\
+   <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake, either through school or household meals, is largely missing from the literature.</p>",
+  
+  "<h1 style='font-family: Arial; line-height: 160%; font-size: 30px'>Choose a <span style='color:#328fcf;'>food group</span> to learn more about the eating habits of meal-plan households.</h2>"
 ];
 
   const RegBarSteps = [
-    "<h2>As the number of students in a household increased, so did the proportion of students on the meal plan.</h2>\
-    <p>Families with more children are generally more reliant on school meal plans.\nOn average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
-    "<h2>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h2>\
-    <p> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
-    <p>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
+    "<h1 style='font-family: Arial; font-size: 30px; line-height: 140%'>As the number of students in a household increased, so did the proportion of students on the meal plan.</h1>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Families with more children are generally more reliant on school meal plans.\n </p>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>On average, among families with 7 children, <strong>82.14%</strong> were on the meal plan (versus 48.13% for single-child households).</p>",
+    "<h1 style='font-family: Arial; font-size: 30px; line-height: 140%'>However, meal plans do not completely alleviate families from the financial burden of nutrition.</h1>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'> Families often turn to <strong>coping strategies</strong> for further financial assistance.</p>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>As the number of children increases, there is a general increased use of coping strategies. On average, families with 7 children reduced adult food consumption <strong>4 of the past 7 days</strong> so that children could eat.</p>",
   ];
 
 
@@ -53,21 +68,22 @@
 
 <section>
 	<div class='hero'>
-		<h1 style='font-family: Arial; font-size: 100px;'> 
+		<h1 style='font-family: Arial;font-size: 171px;font-weight: 900;'> 
 			DataPlate
 		</h1>
-    <h2 style='font-family: Arial;'> 
-			Adapting the student meal plan to the needs of the Colombian household through a nutritional lens
+    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100;'> 
+			Adapting the <strong>student meal plan</strong> to the needs of the <strong>Colombian household</strong> through a nutritional lens
 		</h2>
 	</div>
-  <div class="intro" style='font-size: 20px;'>
+  <div class="intro" style='font-size: 24px;line-height: 160%;'>
     <p> 
       In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children, focusing on nutrition.
     </p>
-    <p style="font-weight:bold; justify-content: center;">
-      Scroll down to start.
-    </p>
   </div>
+  <div class="scrollToStart" style='font-size: 25px;font-weight: 200; color: #999999'>
+    <p>Scroll to Start</p>
+  </div>
+
 
   <!-- This module is used as a container for the dataViz. Add a file for your data viz and -->
   <div class="section-container">
@@ -131,6 +147,22 @@
     </div>
   </div>
 
+	<div class='hero'>
+    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left'> 
+			<strong>Diets appear unbalanced regardless of FCS status.</strong>
+		</h2>
+	</div>
+  <div class="intro" style='font-size: 24px;line-height: 160%;'>
+    <p> 
+      <span style='color: red'><strong>Add filler text here for a transition to the bar charts.</strong></span>
+      
+      In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children, focusing on nutrition.
+    </p>
+  </div>
+  <div class="scrollToStart" style='font-size: 25px;font-weight: 200; color: #999999'>
+    <p></p>
+  </div>
+
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
@@ -147,7 +179,21 @@
     </div>
   </div>
 
-<div class="section-container">
+	<div class='hero'>
+    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left'> 
+			<strong>One way to mitigate food insecurity among Colombian youth is by reforming the school meal plans.</strong>
+		</h2>
+	</div>
+  <div class="intro" style='font-size: 24px;line-height: 160%;'>
+    <p> 
+      In doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.
+    </p>
+  </div>
+  <div class="scrollToStart" style='font-size: 25px;font-weight: 200; color: #999999'>
+    <p></p>
+  </div>
+
+<!-- <div class="section-container">
   <div class="steps-container">
     <Scrolly bind:value>
       {#each ConcludingSteps as text, i}
@@ -157,11 +203,11 @@
       {/each}
       <div class="spacer" />
     </Scrolly>
-  </div>
+  </div> -->
   <!-- <div class="sticky">
     <StackedBars step={value} />
   </div> -->
-</div>
+
 </section>
 
 <style>
@@ -175,11 +221,14 @@
   }
 	
 	.hero {
-		display: flex;
+		/* display: flex; */
 		place-items: center;
-		flex-direction: column;
+		/* flex-direction: column; */
 		justify-content: center;
 		text-align: left;
+    margin-left: 5%;
+    margin-block-end: 2%;
+    margin-right: 40%;
 	}
 	.hero h1 {
 		margin-bottom: 0;
@@ -206,6 +255,7 @@
     text-align: center;
     transition: background 100ms;
     display: flex;
+    margin-block-end: 17%;
   }
 
   .step {
@@ -225,7 +275,7 @@
     flex-direction: column;
     justify-content: center;
     transition: background 500ms ease;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
     text-align: left;
 		width: 75%;
 		margin: auto;
@@ -237,17 +287,24 @@
     font-family: Arial;
     background: #f9f5f1;
     border-radius: 5px;
-    padding: .5rem 1rem;
+    /* padding: .5rem 1rem; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     transition: background 500ms ease;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
-    text-align: center;
-		width: 75%;
-		margin: auto;
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
+    text-align: left;
+		width: 55%;
+    margin-left: 5%;
+    margin-block-end: 6%;
   }
+  .scrollToStart{
+    font-family: Arial;
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
+    text-align: center;
+    margin-block-end: 10%;
 
+  }
 	.step.active .step-content {
 		background: #f9f5f1;
 		color: black;
@@ -271,10 +328,12 @@
   display: inline-block;
   justify-content: center;
   align-items: center;
+  scale: 1.5;
+  margin-left: 20%;
+  margin-top: 15%;
 
 
 } 
-
 	
 /* Comment out the following line to always make it 'text-on-top' */
   @media screen and (max-width: 768px) {

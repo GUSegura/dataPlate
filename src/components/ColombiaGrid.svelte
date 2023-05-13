@@ -133,6 +133,6 @@
       max-width: 100%;
           background: #f9f5f1;
           border-radius: 5px;
-          box-shadow: 1px 1px 6px #cecece;
+          /* box-shadow: 1px 1px 6px #cecece; */
     }
   </style>

@@ -43,7 +43,7 @@
           console.error(error);
       }
       function barChart() {
-        const margin = { top: 30, bottom: 30, left: 30, right: 30 };
+        const margin = { top: 30, bottom: 50, left: 30, right: 30 };
         // const height = 700;// - margin.top - margin.bottom;
         // const width = 700;// - margin.left - margin.right;
 
@@ -63,16 +63,19 @@
 
         svg.append('g')
           .attr('transform', `translate(0, ${height - margin.bottom})`)
+          .style("font-size", '15px')
           .call(d3.axisBottom(x));
 
         svg.append('text') //x axis label
             .attr('x', width / 2)
             .attr('y', y(0)+margin.bottom)
             .style("text-anchor", "middle")
+            .style("font-size", '20px')
             .text('Number of Children in Household');
 
         svg.append('g')
           .attr('transform', `translate(${margin.left}, 0)`)
+          .style("font-size", '15px')
           .call(d3.axisLeft(y));
 
 
@@ -131,6 +134,7 @@
           .attr('y', margin.top)
           .style("text-anchor", "middle")
           .style("font-weight", "bold")
+          .style("font-size", "22px")
           .text('Proportion of Students Receiving Meal Plan by Number of Children in Household');
       }
       barChart();
@@ -177,7 +181,7 @@ function updateColors() {
     max-width: 100%;
     background: #f9f5f1;
     border-radius: 5px;
-    box-shadow: 1px 1px 6px #cecece;
+    /* box-shadow: 1px 1px 6px #cecece; */
     display: flex;
     justify-content: center;
     align-items: center;

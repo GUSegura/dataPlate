@@ -96,6 +96,6 @@
     max-width: 100%;
 		background: linear-gradient(to bottom right, steelblue -100%, white 100%);
 		border-radius: 5px;
-		box-shadow: 1px 1px 6px #cecece;
+		/* box-shadow: 1px 1px 6px #cecece; */
   }
 </style>
