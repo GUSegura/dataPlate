@@ -233,7 +233,7 @@ function renderChart(food_group) {
 
 let options = ["Vegetables", "Meat", "Staples", "Fruit"]
           svg.append("rect")
-            .attr("x",16)
+            .attr("x",20)
             .attr("y",-16)
             .attr("font", "sans-serif")
             .attr("width", 25)
@@ -260,26 +260,26 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
                  
           addDropdown(svg, options);   
           let title = food_group.charAt(0).toUpperCase() + food_group.substr(1).toLowerCase();     
-          svg.append("defs")
-            .append("marker")
-            .attr("id", "triangle")
-            .attr("refX", 6)
-            .attr("refY", 3)
-            .attr("markerWidth", 5)
-            .attr("markerHeight", 5)
-            .attr("orient", "auto")
-            .append("path")
-            .attr("d", "M 0 0 6 3 0 6");
+          // svg.append("text")
+          //   .text("\u25BC")
+          //   .attr("id", "triangle")
+          //   .style('font-size', '3px')
+          //   .style('fill', '#328fcf')
+          //   .attr('x',42)
+          //   .attr('y',-12)
+          //   .attr('opacity', '1');
+            
           svg.append("text")
             .attr("x", 17.3)
             .attr("y", -12.2)
             .attr("alignment-baseline","middle")
-            .text(title)
+            .text(title+'\u25BC')
             .style("font-size", "4.2px")
             .style("font-weight", "bold")
             .style('fill', '#328fcf')
             .style('font-family', '"Open Sans", sans-serif')   
             .on('mouseover', function() {
+              console.log("mouseover");
               d3.select(this).transition()
                 .duration('400')
                 .attr('opacity', '.80');
@@ -287,8 +287,14 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
               dropDown.transition()
                 .duration('400')
                 .attr('opacity', '1');
+              let triangle = d3.selectAll('.triangle');
+              triangle.transition()
+                .duration('400')
+                .attr('opacity', '0');
             })
             .on('mouseout', function() {
+              console.log("mouseout");
+
               d3.select(this).transition()
                 .duration('400')
                 .attr('opacity', '1');
@@ -296,13 +302,12 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
               dropDown.transition()
                 .duration('400')
                 .attr('opacity', '0');
+              let triangle = d3.selectAll('.triangle');
+              triangle.transition()
+                .duration('400')
+                .attr('opacity', '1');
             })
-            .append("tspan")
-            .attr("dx", 2)
-            .style("font-size", "2px")
-            .style('fill', '#328fcf')
-            .text("\u25BC")
-            .attr("marker-end", "url(#triangle)");
+          
                 
   
 }
@@ -315,7 +320,7 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
           let group = options[i];
           svg.append("rect")
           .attr("class", "dropdown")
-          .attr("x",41)
+          .attr("x",45)
           .attr("y",options_y)
           .attr("font", "sans-serif")
           .attr("width", 15)
@@ -343,7 +348,7 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
    
         svg.append("text")
           .attr("class", "dropdown")
-          .attr("x", 41.5)
+          .attr("x", 46)
           .attr("y", options_y + 1.7)
           .attr("alignment-baseline","middle")
           .text(group)
