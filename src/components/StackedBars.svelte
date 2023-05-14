@@ -260,6 +260,16 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
                  
           addDropdown(svg, options);   
           let title = food_group.charAt(0).toUpperCase() + food_group.substr(1).toLowerCase();     
+          svg.append("defs")
+            .append("marker")
+            .attr("id", "triangle")
+            .attr("refX", 6)
+            .attr("refY", 3)
+            .attr("markerWidth", 5)
+            .attr("markerHeight", 5)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 6 3 0 6");
           svg.append("text")
             .attr("x", 17.3)
             .attr("y", -12.2)
@@ -286,8 +296,15 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
               dropDown.transition()
                 .duration('400')
                 .attr('opacity', '0');
-            });
+            })
+            .append("tspan")
+            .attr("dx", 2)
+            .style("font-size", "2px")
+            .style('fill', '#328fcf')
+            .text("\u25BC")
+            .attr("marker-end", "url(#triangle)");
                 
+  
 }
   //replace to CHOOSE DEFAULT food group            
   renderChart("vegetables");
