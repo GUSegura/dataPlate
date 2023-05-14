@@ -46,7 +46,8 @@
    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>In Colombia, the average adult over 20 years old consumes only 32% of the recommended vegetable intake.</p>\
    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Despite <strong>13% of children suffering from malnutrition</strong>, the degree to which children meet the recommended vegetable intake, either through school or household meals, is largely missing from the literature.</p>",
   
-  "<h1 style='font-family: Arial; line-height: 160%; font-size: 30px'>Choose a <span style='color:#328fcf;'>food group</span> to learn more about the eating habits of meal-plan households.</h2>"
+  "<h1 style='font-family: Arial; line-height: 160%; font-size: 30px'>Choose a <span style='color:#328fcf;'>food group</span> to learn more about the eating habits of meal-plan households.</h2>\
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Hover over the selected <span style='color:#328fcf;'><strong>food group</strong></span> to select between <strong>Vegetables, Meat, Staples</strong> and <strong>Fruit</strong>.</p>"
 ];
 
   const RegBarSteps = [
@@ -176,11 +177,11 @@
   </div>
 
 	<div class='hero'>
-    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left'> 
+    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left; margin-block-start: 45%'> 
 			<strong>One way to mitigate food insecurity among Colombian youth is by reforming the school meal plans.</strong>
 		</h2>
 	</div>
-  <div class="intro" style='font-size: 24px;line-height: 160%;'>
+  <div class="outro" style='font-size: 24px;line-height: 160%;'>
     <p> 
       In doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.
     </p>
@@ -226,15 +227,15 @@
 .house {
   align-items: center;
   position: absolute;
-  top: 50%;
-  right: 20%;
+  top: 60%;
+  right: 16%;
   width: 100px;
-  height: 100px;
+  height: 80px;
   transform: translateX(-50%);
   transform: translateY(-50%);
   background-color: black;
   border: 2px solid #000;
-  transform: scale(2);
+  transform: scale(2.7);
   display: flex;
   /* float: right; */
 
@@ -243,7 +244,7 @@
 .house:before {
   content: "";
   position: absolute;
-  top: -70px;
+  top: -65px;
   left: -30px;
   right: auto;
   margin: 0 auto;
@@ -266,7 +267,7 @@
   margin: 0 auto;
   width: 50px;
   height: 50px;
-  background-color: white;
+  /* background-color: white; */
   border: 2px solid black;
   justify-content: center;
   align-items: center;
@@ -289,7 +290,7 @@
 		font-weight: 200;
 	}
 	.hero h2 {
-		margin-bottom: 100;
+		margin-bottom: 0%;
 		font-weight: 200;
 	}
 	
@@ -352,6 +353,23 @@
     margin-left: 5%;
     margin-block-end: 3%;
   }
+
+  .outro{
+    font-size: 1rem;
+    font-family: Arial;
+    background: #f9f5f1;
+    border-radius: 5px;
+    /* padding: .5rem 1rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 500ms ease;
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
+    text-align: left;
+    width: 55%;
+    margin-left: 5%;
+    margin-block-end: 15%;
+  }  
   .scrollToStart{
     font-family: Arial;
     /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
