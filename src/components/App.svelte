@@ -67,13 +67,7 @@
 </script>
 
 <section>
-  <div class="intro">
-    <div class="house">
-      <div class="triangle"></div>
-      <div class="square"></div>
-    </div>
-
-    <div class='beginning'>
+    <div class="beginning">
       <div class='hero'>
         <h1 style='font-family: Arial;font-size: 171px;font-weight: 900;'> 
           DataPlate
@@ -82,6 +76,7 @@
           Adapting the <strong>student meal plan</strong> to the needs of the <strong>Colombian household</strong> through a nutritional lens
         </h2>
       </div>
+      <div class="house"></div>
       <div class="intro" style='font-size: 24px;line-height: 160%;'>
         <p> 
           In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children, focusing on nutrition.
@@ -90,11 +85,7 @@
       <div class="scrollToStart" style='font-size: 25px;font-weight: 200; color: #999999'>
         <p>Scroll to Start</p>
       </div>
-          <!-- <div class='logo'>
-        <img src="house.png" alt="description of image" style="float: right; width: 50%; margin-left: 20px;">
-      </div> -->
     </div>
-  </div>
 
     <!-- This module is used as a container for the dataViz. Add a file for your data viz and -->
   <div class="section-container">
@@ -224,42 +215,64 @@
   *{
     font-family: Arial;
   }
-
-  .intro {
+.beginning {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  min-height: 100vh;
 }
-  .square {
-    width: 100px;
-    height: 70px;
-    position: relative;
-    background-color: black;
-    
-  }
+
+.house {
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  right: 20%;
+  width: 100px;
+  height: 100px;
+  transform: translateX(-50%);
+  transform: translateY(-50%);
+  background-color: black;
+  border: 2px solid #000;
+  transform: scale(2);
+  display: flex;
+  /* float: right; */
+
+}
+
+.house:before {
+  content: "";
+  position: absolute;
+  top: -70px;
+  left: -30px;
+  right: auto;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 80px solid black;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+.house:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 2px solid black;
+  justify-content: center;
+  align-items: center;
+}
+
   
-  .triangle {
-    /* width: 0;
-    height: 0; */
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 60px solid black;
-    position: relative;
-    top: 0px;
-    /* transform: translateX(50%); */
-
-  }
-
-  .house {
-    display: flex;
-		place-items: center;
-		flex-direction: column;
-		justify-content: center;
-		text-align: left;
-    margin-left: 70%;
-    margin-block-end: 2%;
-    margin-right: 95%;
-  }
 	.hero {
 		/* display: flex; */
 		place-items: center;
