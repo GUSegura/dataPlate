@@ -272,6 +272,7 @@
 	}
 	.hero h1 {
 		margin-bottom: 0;
+    margin-top: 10%;
 		font-weight: 200;
 	}
 	.hero h2 {
@@ -336,7 +337,7 @@
     text-align: left;
 		width: 55%;
     margin-left: 5%;
-    margin-block-end: 6%;
+    margin-block-end: 3%;
   }
   .scrollToStart{
     font-family: Arial;
