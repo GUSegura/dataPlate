@@ -297,12 +297,12 @@ let options = ["Vegetables", "Meat", "Staples", "Fruit"]
                 .duration('400')
                 .attr('opacity', '0');
             })
-            .append("tspan")
-            .attr("dx", 2)
-            .style("font-size", "2px")
-            .style('fill', '#328fcf')
-            .text("\u25BC")
-            .attr("marker-end", "url(#triangle)");
+            // .append("tspan")
+            // .attr("dx", 2)
+            // .style("font-size", "2px")
+            // .style('fill', '#328fcf')
+            // .text("\u25BC")
+            // .attr("marker-end", "url(#triangle)");
                 
   
 }
