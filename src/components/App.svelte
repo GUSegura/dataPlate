@@ -177,11 +177,11 @@
   </div>
 
 	<div class='hero'>
-    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left'> 
+    <h2 style='font-family: Arial;font-size: 40px;font-weight: 100; align: left; margin-block-start: 45%'> 
 			<strong>One way to mitigate food insecurity among Colombian youth is by reforming the school meal plans.</strong>
 		</h2>
 	</div>
-  <div class="intro" style='font-size: 24px;line-height: 160%;'>
+  <div class="outro" style='font-size: 24px;line-height: 160%;'>
     <p> 
       In doing so, we can address nutritional deficiencies among food groups like vegetables, and also reduce the financial burden and coping strategies households undergo in providing food.
     </p>
@@ -353,6 +353,23 @@
     margin-left: 5%;
     margin-block-end: 3%;
   }
+
+  .outro{
+    font-size: 1rem;
+    font-family: Arial;
+    background: #f9f5f1;
+    border-radius: 5px;
+    /* padding: .5rem 1rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 500ms ease;
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
+    text-align: left;
+    width: 55%;
+    margin-left: 5%;
+    margin-block-end: 15%;
+  }  
   .scrollToStart{
     font-family: Arial;
     /* box-shadow: 1px 1px 10px rgba(0, 0, 0, .2); */
