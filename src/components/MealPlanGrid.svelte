@@ -13,11 +13,11 @@
   
   // Define the data, number of columns, scales, and circle size
   let data = [];
-  let tweenedColor = tweened([], {
+  let color = [];
+  let tweenedColor = tweened(Array(8513).fill('rgb(255, 62, 0)'), {
     duration: 1000,
     interpolate: interpolateLab
   });
-
   let numCols;
   let xScale;
   let yScale;
@@ -37,8 +37,11 @@
 
       // Sort the data in descending order of students in households
       data = data.sort((a, b) => b.fcs_score - a.fcs_score);
-
-      tweenedColor.set(data.map((d)=>'rgb(164, 145, 211)'));
+      tweenedColor.set(data.map((d)=>'#a491d3'));
+      color = data.map((d)=>'#a491d3');
+      
+      let numCircles = data.length;
+      updateSize(numCircles);
   
     } catch (error) {
     }
@@ -74,18 +77,16 @@
   function updateStep(step) {
     if (step == 0) {
       console.log(step);
-      tweenedColor.set(data.map((d)=>'rgb(164, 145, 211)'));
+      tweenedColor.set(data.map((d)=>'#a491d3'));
       console.log(tweenedColor);
-      let numCircles = data.length;
-      updateSize(numCircles);
+      color = data.map((d)=>'#a491d3')
 
     }
     if (step == 1) {
       console.log(step);
-      tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? 'rgb(84, 174, 137)' : 'rgb(252, 180, 76)') : 'rgb(244, 108, 108)';}));
+      tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';}));
+      color = data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';});
       console.log(tweenedColor);
-      let numCircles = data.length;
-      updateSize(numCircles);
     }
   }
   
@@ -102,12 +103,12 @@ bind:offsetWidth={width}
 bind:offsetHeight={height}
 >
   <svg width={width + margin.right + margin.left} {height}>
-    {#each data as d, i}
+    {#each color as d, i}
       <circle 
         cx={xScale(i % numCols)}
         cy={yScale(Math.floor(i / numCols))}
         r={circleSize / 2}
-        fill= {$tweenedColor[i]}
+        fill= {d}
       />
     {/each}
   </svg>
