@@ -95,6 +95,7 @@
           fcs_vegetales: (d.fcs_vegetales === '_') ? 0 : +d.fcs_vegetales,
           fcs_frutas: (d.fcs_frutas === '_') ? 0 : +d.fcs_frutas,
           recieves_meal_plan: (d.nr_PAE === '_') ? 0 : +d.nr_PAE,
+          fcs_cereales: (d.fcs_cereales === '_') ? 0 : +d.fcs_cereales,
           fcs_status: null,
           fcs_status_meat: null,
           fcs_status_fruit: null,
