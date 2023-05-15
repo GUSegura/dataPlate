@@ -25,6 +25,7 @@
 
   const tweenedX = tweened(Array(8513).fill().map(() => 0),{ duration: 800});
   const tweenedY = tweened(Array(8513).fill().map(() => 0),{ duration: 800});
+  const tweenedSize = tweened(Array(8513).fill().map(() => 0),{ duration: 800});
 
   let circleColorValues = [];
 
@@ -98,6 +99,7 @@
       changeColor("gray");
       tweenedX.set(data.map((d,i)=>i % numCols));
       tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+      tweenedSize.set(data.map((d,i)=>circleSize / 2));
 
     }
     if (step == 1) {
@@ -118,6 +120,7 @@
       });
       tweenedX.set(data.map((d,i)=>i % numCols));
       tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+      tweenedSize.set(data.map((d,i)=>circleSize / 2));
     }
     if (step == 2) {
       data.forEach(d => { d.color = d.students_in_hh > 0 ? d.recieves_meal_plan > 0 ? "#A491D3" : "#0595b3" : "gray" });
@@ -137,6 +140,7 @@
       });
       tweenedX.set(data.map((d,i)=>i % numCols));
       tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+      tweenedSize.set(data.map((d,i)=>circleSize / 2));
     }
     if (step == 3) {
       data.forEach(d => { d.color = d.recieves_meal_plan > 0 ? "#A491D3" : "#f9f5f1" });
@@ -152,6 +156,7 @@
       });
       tweenedX.set(data.map((d,i)=>i % numCols));
       tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+      tweenedSize.set(data.map((d,i)=>circleSize / 2));
       }
     if (step == 4) {
       filteredData = data.filter(d => d.recieves_meal_plan > 0);
@@ -166,6 +171,7 @@
       });
       tweenedX.set(data.map((d,i)=>i % numCols));
       tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+      tweenedSize.set(data.map((d,i)=>circleSize / 2));
     }
 
     // Copy the data array to the coloredData array to trigger a re-render
@@ -191,7 +197,7 @@ bind:offsetHeight={height}
       <circle 
         cx={xScale($tweenedX[i])}
         cy={yScale($tweenedY[i])}
-        r={circleSize / 2}
+        r={$tweenedSize[i]}
         fill= {circleColorValues[i]}
       />
     {/each}
