@@ -63,6 +63,23 @@
         sometimes: 0, 
         often: 0 
       }
+    },
+    grains: {
+      poor: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      },
+      borderline: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      },
+      acceptable: {
+        rarely: 0, 
+        sometimes: 0, 
+        often: 0 
+      }
     }
 
   };
@@ -81,7 +98,8 @@
           fcs_status: null,
           fcs_status_meat: null,
           fcs_status_fruit: null,
-          fcs_status_vegetables: null
+          fcs_status_vegetables: null,
+          fcs_status_grains: null
         };
       });
 
@@ -98,6 +116,9 @@
 
       d.fcs_status_fruit = d.fcs_frutas > 3 ? d.fcs_frutas > 5 ? "often" : "sometimes" : "rarely" 
       updateFcsCount(fcs_count.fruit, d.fcs_status, d.fcs_status_fruit);
+
+      d.fcs_status_grains = d.fcs_cereales > 3 ? d.fcs_cereales > 5 ? "often" : "sometimes" : "rarely" 
+      updateFcsCount(fcs_count.grains, d.fcs_status, d.fcs_status_grains);
     });
 
 
@@ -231,7 +252,7 @@ function renderChart(food_group) {
             .style('font-family', '"Open Sans", sans-serif')  
 // DROPDOWN
 
-let options = ["Vegetables", "Meat", "Staples", "Fruit"]
+let options = ["Vegetables", "Meat", "Grains", "Fruit"]
           svg.append("rect")
             .attr("x",16)
             .attr("y",-16)
