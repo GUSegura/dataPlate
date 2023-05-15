@@ -1,6 +1,10 @@
 <script>
   import * as d3 from 'd3';
   import { onMount } from 'svelte';
+  import { interpolateLab } from 'd3-interpolate';
+  import { tweened } from 'svelte/motion';
+  import { interpolateRgb } from 'd3-interpolate';
+  import { onDestroy } from 'svelte';
 
   export let step;
 
@@ -11,16 +15,39 @@
   
   // Define the data, number of columns, scales, and circle size
   let data = [];
+  let color = [];
+  let tweenedColor = tweened(Array(8513).fill('rgb(255, 62, 0)'), {
+    duration: 1000,
+    interpolate: interpolateLab
+  });
+
+  const circleColors = Array(2172).fill().map(() => 
+    tweened('#a491d3', { duration: 800, interpolate: interpolateRgb })
+  );
+
+  let circleColorValues = [];
+
+  const unsubscribes = circleColors.map((circleColor, i) => 
+        circleColor.subscribe(value => {
+            circleColorValues[i] = value;
+        })
+  );
+
+  onDestroy(() => {
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+  });
+
+  function changeColor(c) {
+        circleColors.forEach(circleColor => circleColor.set(c));
+  }
+  
   let numCols;
   let xScale;
   let yScale;
   let circleSize;
-  let filteredData = [];
 
   onMount(async () => {
     try {
-
-
       // Parse the CSV data and format it for the chart
       data = await d3.csv('https://raw.githubusercontent.com/GUSegura/Colombia_data/master/data.csv');
       data = data.map((d) => {
@@ -28,12 +55,16 @@
           students_in_hh: (d.nr_escuela_colegio === '_') ? 0 : +d.nr_escuela_colegio,
           recieves_meal_plan: (d.nr_PAE === '_') ? 0 : +d.nr_PAE,
           fcs_score: (d.fcs === '_') ? 0 : +d.fcs, 
-          color: "black"
         };
       }).filter((d) => d.recieves_meal_plan!==0);
 
       // Sort the data in descending order of students in households
       data = data.sort((a, b) => b.fcs_score - a.fcs_score);
+      tweenedColor.set(data.map((d)=>'#a491d3'));
+      color = data.map((d)=>'#a491d3');
+      changeColor('#a491d3');
+      let numCircles = data.length;
+      updateSize(numCircles);
   
     } catch (error) {
     }
@@ -68,29 +99,37 @@
   // Update the colors of the circles based on the step value
   function updateStep(step) {
     if (step == 0) {
-      data.forEach(d => { d.color = "#A491D3" });
-      filteredData = data;
-      let numCircles = filteredData.length;
-      updateSize(numCircles);
+      console.log(data.length)
+      console.log(step);
+      tweenedColor.set(data.map((d)=>'#a491d3'));
+      changeColor('#a491d3');
+      console.log(tweenedColor);
+      color = data.map((d)=>'#a491d3');
 
     }
     if (step == 1) {
-      data.forEach(d => { d.color = d.fcs_score > 21 ? d.fcs_score > 35 ? "#54ae89" : "#fcb44c" : "#f46c6c"}); 
-      filteredData = data;
-      let numCircles = filteredData.length;
-      updateSize(numCircles);
+      console.log(step);
+      tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';}));
+      color = data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';});
+      console.log(tweenedColor);
+      data.forEach((d, i) => {
+        let color;
+        if (d.fcs_score > 21) {
+          color = d.fcs_score > 35 ? '#54ae89' : '#fcb34c';
+        } else {
+          color = '#f46c6c';
+        }
+        if (circleColors[i]) {
+          circleColors[i].set(color);
+        }
+      });
     }
-
-    // Copy the data array to the coloredData array to trigger a re-render
-    coloredData = [...filteredData];
   }
   
   // Update the colors on every change of the step variable
   $: {
     updateStep(step);
   }
-
-  let coloredData = data;
 
 </script>
 
@@ -100,12 +139,12 @@ bind:offsetWidth={width}
 bind:offsetHeight={height}
 >
   <svg width={width + margin.right + margin.left} {height}>
-    {#each coloredData as d, i}
+    {#each data as d, i}
       <circle 
         cx={xScale(i % numCols)}
         cy={yScale(Math.floor(i / numCols))}
         r={circleSize / 2}
-        fill= {d.color}
+        fill= {circleColorValues[i]}
       />
     {/each}
   </svg>
