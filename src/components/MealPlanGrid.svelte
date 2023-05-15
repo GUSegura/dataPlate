@@ -38,7 +38,7 @@
       // Sort the data in descending order of students in households
       data = data.sort((a, b) => b.fcs_score - a.fcs_score);
 
-      tweenedColor.set(data.map((d)=>"#A491D3"));
+      tweenedColor.set(data.map((d)=>'rgb(164, 145, 211)'));
   
     } catch (error) {
     }
@@ -74,7 +74,7 @@
   function updateStep(step) {
     if (step == 0) {
       console.log(step);
-      tweenedColor.set(data.map((d)=>"#A491D3"));
+      tweenedColor.set(data.map((d)=>'rgb(164, 145, 211)'));
       console.log(tweenedColor);
       let numCircles = data.length;
       updateSize(numCircles);
@@ -82,7 +82,7 @@
     }
     if (step == 1) {
       console.log(step);
-      tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? "#54ae89" : "#fcb44c") : "#f46c6c";}));
+      tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? 'rgb(84, 174, 137)' : 'rgb(252, 180, 76)') : 'rgb(244, 108, 108)';}));
       console.log(tweenedColor);
       let numCircles = data.length;
       updateSize(numCircles);

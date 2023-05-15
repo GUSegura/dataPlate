@@ -1,7 +1,10 @@
 <script>
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
-  
+    import { interpolateLab } from 'd3-interpolate';
+    import { tweened } from 'svelte/motion';
+    import { flip } from 'svelte/animate';
+
     export let step;
   
   
@@ -16,6 +19,24 @@
     let yScale;
     let circleSize;
     let filteredData = [];
+    let tweenedColor = tweened([], {
+      duration: 100,
+      interpolate: interpolateLab
+    });
+    let tweenedX = tweened([], {
+      duration: 100,
+      interpolate: interpolateLab
+    });
+    let tweenedY = tweened([], {
+      duration: 100,
+      interpolate: interpolateLab
+    });
+    let tweenedSize = tweened([], {
+      duration: 100,
+      interpolate: interpolateLab
+    });
+
+    
   
     onMount(async () => {
       try {  
@@ -32,6 +53,11 @@
         // Sort the data in descending order of students in households
         data = data.sort((a, b) => b.students_in_hh - a.students_in_hh)
                    .sort((a, b) => b.recieves_meal_plan - a.recieves_meal_plan);
+        
+        tweenedColor.set(data.map((d)=>"#585858"));
+        tweenedX.set(data.map((d)=>0.5));
+        tweenedY.set(data.map((d)=>0.5));
+        tweenedSize.set(data.map((d)=>1));
     
       } catch (error) {
         console.error(error);
@@ -68,37 +94,55 @@
     function updateStep(step) {
       if (step == 0) {
         data.forEach(d => { d.color = "gray" });
+        tweenedColor.set(data.map((d)=>"#585858"));
         filteredData = data;
         let numCircles = filteredData.length;
         updateSize(numCircles);
-
+        tweenedX.set(data.map((d,i)=>i % numCols));
+        tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+        tweenedSize.set(data.map((d)=>circleSize / 2));
       }
       if (step == 1) {
         data.forEach(d => { d.color = d.students_in_hh > 0 ? "#0595b3" : "gray" });
+        tweenedColor.set(data.map((d)=>{return d.students_in_hh > 0 ? "#0595b3" : "#585858"}));
         filteredData = data;
         let numCircles = filteredData.length;
         updateSize(numCircles);
+        tweenedX.set(data.map((d,i)=>i % numCols));
+        tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+        tweenedSize.set(data.map((d)=>circleSize / 2));
       }
       if (step == 2) {
         data.forEach(d => { d.color = d.students_in_hh > 0 ? d.recieves_meal_plan > 0 ? "#A491D3" : "#0595b3" : "gray" });
+        tweenedColor.set(data.map((d)=>{return d.students_in_hh > 0 ? d.recieves_meal_plan > 0 ? "#A491D3" : "#0595b3" : "#585858"}));
         filteredData = data;
         let numCircles = filteredData.length;
         updateSize(numCircles);
+        tweenedX.set(data.map((d,i)=>i % numCols));
+        tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+        tweenedSize.set(data.map((d)=>circleSize / 2));
       }
       if (step == 3) {
         data.forEach(d => { d.color = d.recieves_meal_plan > 0 ? "#A491D3" : "#f9f5f1" });
+        tweenedColor.set(data.map((d)=>{return d.recieves_meal_plan > 0 ? "#A491D3" : "#f9f5f1"}));
         filteredData = data;
         let numCircles = filteredData.length;
         updateSize(numCircles);
-        }
+        tweenedX.set(data.map((d,i)=>i % numCols));
+        tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+        tweenedSize.set(data.map((d)=>circleSize / 2));
+      }
       if (step == 4) {
         filteredData = data.filter(d => d.recieves_meal_plan > 0);
         let numCircles = filteredData.length;
         updateSize(numCircles);
+        tweenedX.set(data.map((d,i)=>i % numCols));
+        tweenedY.set(data.map((d,i)=>Math.floor(i / numCols)));
+        tweenedSize.set(data.map((d)=>circleSize / 2));
       }
 
       // Copy the data array to the coloredData array to trigger a re-render
-      coloredData = [...filteredData];
+      // coloredData = [...filteredData];
     }
     
     // Update the colors on every change of the step variable
@@ -106,7 +150,7 @@
       updateStep(step);
     }
   
-    let coloredData = data;
+    // let coloredData = data;
   
   </script>
   
@@ -116,12 +160,12 @@
   bind:offsetHeight={height}
 >
     <svg width={width + margin.right + margin.left} {height}>
-      {#each coloredData as d, i}
+      {#each data as d, i (d)}
         <circle 
-          cx={xScale(i % numCols)}
-          cy={yScale(Math.floor(i / numCols))}
-          r={circleSize / 2}
-          fill= {d.color}
+          cx={xScale($tweenedX[i])}
+          cy={yScale($tweenedY[i])}
+          r={$tweenedSize[i]}
+          fill= {$tweenedColor[i]}
         />
       {/each}
     </svg>
