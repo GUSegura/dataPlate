@@ -47,7 +47,7 @@
    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Despite <a href='https://biomedscis.com/fulltext/epidemiology-of-child-malnutrition-in-colombia.ID.000537.php'; style='color: #328fcf; text-decoration: none'><strong>12.7% of children suffering from malnutrition, </strong></a> the degree to which children meet the recommended vegetable intake, either through school or household meals, is largely missing from the literature.</p>",
 
   "<h1 style='font-family: Arial; line-height: 160%; font-size: 30px'>Choose a <span style='color:#328fcf;'>food group</span> to learn more about the eating habits of meal-plan households.</h2>\
-    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Hover over the selected <span style='color:#328fcf;'><strong>food group</strong></span> to select between <strong>Vegetables, Meat, Staples</strong> and <strong>Fruit</strong>.</p>"
+    <p style='font-family: Arial; font-size: 25px; line-height: 160%'>Hover over the selected <span style='color:#328fcf;'><strong>food group</strong></span> to select between <strong>Vegetables, Meat, Grains</strong> and <strong>Fruit</strong>.</p>"
 ];
 
   const RegBarSteps = [
