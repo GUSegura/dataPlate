@@ -83,7 +83,7 @@
           In 2022, the World Food Program (WFP) conducted a food security and nutrition assessment in Colombia. Findings from the report stated that it is critical to maintain and expand emergency assistance to meet the food security needs of the populations identified. The WFP recommended that such assistance should incorporate a <strong>nutritional lens</strong> to make sure vulnerable groups are able to access a nutritious diet. In this data visualization, we take a look at the food security of households with children, focusing on nutrition.
         </p>
         <div class="citation">
-        <p>This data visualization was made with data contributed by the United Nations World Food Programme (WFP).</p>
+        <p>This data visualization was made with data contributed by the United Nations World Food Programme (WFP), and Svelte elements from Russell Goldenberg and Connor Rothschild. </p>
       </div>
       </div>
       <div class="scrollToStart" style='font-size: 25px;font-weight: 200; color: #999999'>
