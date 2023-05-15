@@ -3,6 +3,8 @@
   import { onMount } from 'svelte';
   import { interpolateLab } from 'd3-interpolate';
   import { tweened } from 'svelte/motion';
+  import { interpolateRgb } from 'd3-interpolate';
+  import { onDestroy } from 'svelte';
 
   export let step;
 
@@ -18,6 +20,27 @@
     duration: 1000,
     interpolate: interpolateLab
   });
+
+  const circleColors = Array(2172).fill().map(() => 
+    tweened('#a491d3', { duration: 800, interpolate: interpolateRgb })
+  );
+
+  let circleColorValues = [];
+
+  const unsubscribes = circleColors.map((circleColor, i) => 
+        circleColor.subscribe(value => {
+            circleColorValues[i] = value;
+        })
+  );
+
+  onDestroy(() => {
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+  });
+
+  function changeColor(c) {
+        circleColors.forEach(circleColor => circleColor.set(c));
+  }
+  
   let numCols;
   let xScale;
   let yScale;
@@ -39,7 +62,7 @@
       data = data.sort((a, b) => b.fcs_score - a.fcs_score);
       tweenedColor.set(data.map((d)=>'#a491d3'));
       color = data.map((d)=>'#a491d3');
-      
+      changeColor('#a491d3');
       let numCircles = data.length;
       updateSize(numCircles);
   
@@ -76,10 +99,12 @@
   // Update the colors of the circles based on the step value
   function updateStep(step) {
     if (step == 0) {
+      console.log(data.length)
       console.log(step);
       tweenedColor.set(data.map((d)=>'#a491d3'));
+      changeColor('#a491d3');
       console.log(tweenedColor);
-      color = data.map((d)=>'#a491d3')
+      color = data.map((d)=>'#a491d3');
 
     }
     if (step == 1) {
@@ -87,6 +112,17 @@
       tweenedColor.set(data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';}));
       color = data.map((d) => {return d.fcs_score > 21 ? (d.fcs_score > 35 ? '#54ae89' : '#fcb34c') : '#f46c6c';});
       console.log(tweenedColor);
+      data.forEach((d, i) => {
+        let color;
+        if (d.fcs_score > 21) {
+          color = d.fcs_score > 35 ? '#54ae89' : '#fcb34c';
+        } else {
+          color = '#f46c6c';
+        }
+        if (circleColors[i]) {
+          circleColors[i].set(color);
+        }
+      });
     }
   }
   
@@ -103,12 +139,12 @@ bind:offsetWidth={width}
 bind:offsetHeight={height}
 >
   <svg width={width + margin.right + margin.left} {height}>
-    {#each color as d, i}
+    {#each data as d, i}
       <circle 
         cx={xScale(i % numCols)}
         cy={yScale(Math.floor(i / numCols))}
         r={circleSize / 2}
-        fill= {d}
+        fill= {circleColorValues[i]}
       />
     {/each}
   </svg>
